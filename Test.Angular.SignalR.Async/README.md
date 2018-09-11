@@ -31,10 +31,10 @@ Open "appsettings.json" file at project root location and update the ```"notific
 ```json
       {
 	      "AppSettings": {
-	      "notificationUri": "<YOUR POS SERVER API URI>/pceftposnotify/{{session}}/{{type}}",
-              "pinpadUsername": "<YOUR PINPAD USERNAME>",
-              "pinpadPassword": "<YOUR PINPAD PASSWORD>",
-              "pinpadPairCode": "<YOUR PINPAD PAIRING CODE>"
+				"notificationUri": "<YOUR POS SERVER API URI>/pceftposnotify/{{session}}/{{type}}",
+				"pinpadUsername": "<YOUR PINPAD USERNAME>",
+				"pinpadPassword": "<YOUR PINPAD PASSWORD>",
+				"pinpadPairCode": "<YOUR PINPAD PAIRING CODE>"
           }
       }
 ```
@@ -56,7 +56,11 @@ At project properties under Debug section make sure you use:
 * Launch: IIS Express
 * Enable SSL checkbox is selected
     
-__You can use the https:// localhost:<YOUR PORT NUMBER>/ as <YOUR POS SERVER API URI> mentioned above, but you will not get the notifications for localhost__
+__You can use the ```https://localhost:<YOUR PORT NUMBER>/``` as ```<YOUR POS SERVER API URI>``` mentioned above, but you will not get the notifications for localhost__
+If you desided to use localhost, please update the mentioned at step 2 files with ```https://localhost:<YOUR PORT NUMBER>/api/v1``` instead of ```<YOUR POS SERVER API URI>```
+
+Make sure you have the sertificate to run SSL. You can agree to use IIS Express generated sertificate only for test application:
+![Sertificate](Docs/sertificate.png)
 
 #### Run
 Build the project, make sure you use the right NuGet packages and other Dependencies:
@@ -84,6 +88,7 @@ If the status is "LOGON REQUIRED"
 ![POS Pinpad Status Logon required](Docs/pos_logon_required.png)
 
 Click "Logon" button to finish pinpad set up. You will see the following sequence of notifications showing using SignalR library
+__Notifications sequence may vary depending on pinpad__
 ![Logon Init](Docs/notification_logon.png),   ![Logon Approve](Docs/notification_approve.png),   ![Logon Done](Docs/notification_logon_done.png)
 
 Close the last notification. The final POS view for logon complete:
@@ -91,6 +96,7 @@ Close the last notification. The final POS view for logon complete:
 
 ##### Make transaction
 Now you can make a transaction, just go to Home tab and click Transaction button for $1.00 transaction. You will see the following sequence of notifications showing using SignalR library
+__Notifications sequence may vary depending on pinpad__
 ![Txn Swipe Card](Docs/notification_swipe_card.png), ![Txn Select Account](Docs/notification_enter_acc.png), ![Txn Enter pin](Docs/notification_enter_pin.png), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)
 
 Once the transactions is finished, close the last notification. The POS Client will show transaction detains and the receipt:
@@ -98,10 +104,10 @@ Once the transactions is finished, close the last notification. The POS Client w
 
 ##### Decline transaction
 You can decline transaction, but hitting "Cancel" button on one of the Notifications (Swipe Card, Enter Account, Enter Pin) before transaction is processed. Once doing it you will see the notification 
-![Txn Canceled](Docs/notification_txn_canceled.png)
+![Txn Cancelled](Docs/notification_txn_cancelled.png)
 
 and the POS Client will show the transaction data (Receipt may be shown or not. It depends on pinpad settings)
-![POS Txn Canceled](Docs/pos_txn_canceled.png)
+![POS Txn Cancelled](Docs/pos_txn_cancelled.png)
 
 ##### Settings
 At Settings tab you can update the POS Server API and default transaction amount, which is using on Home page. The file at "ClientApp\src\assets\config.json" contains this data.
