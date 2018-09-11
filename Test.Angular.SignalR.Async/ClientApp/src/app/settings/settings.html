@@ -1,0 +1,29 @@
+<h1>Settings</h1>
+<form class="form-horizontal" novalidate [formGroup]="settingsForm" autocomplete="off">
+  <div class="col-md-12 container" [ngClass]="{'has-error': displayMessage.uri }">
+    <div class='col-md-1 bold-font box container'>Server URI: </div>
+    <div class='col-md-4 container'>
+      <input type='text' id='inputUri' class='form-control' formControlName="uri" />
+      <span class="error" *ngIf="displayMessage.uri">
+        {{displayMessage.uri}}
+      </span>
+    </div>
+  </div>
+  
+  <div class="col-md-12 container" [ngClass]="{'has-error': displayMessage.defaultAmount }">
+    <div class='col-md-2 bold-font box container'>Transaction Amount: </div>
+    <div class='col-md-3 container'>
+      <input type='text' id='inputDefaultAmount' class='form-control' formControlName="defaultAmount" />
+      <span class="error" *ngIf="displayMessage.defaultAmount">
+        {{displayMessage.defaultAmount}}
+      </span>
+    </div>
+  </div>
+
+  <label *ngIf='settingsForm.dirty && settingsForm.valid' class='error italic-font'><br />Don't forget to save changes</label>
+
+  <div class="col-md-12 container">
+    <button class="btn btn-primary normal-button" [disabled]='!settingsForm.valid || (settingsForm.valid && !settingsForm.dirty)' (click)="onUpdate()">Update</button>
+  </div>
+
+</form>

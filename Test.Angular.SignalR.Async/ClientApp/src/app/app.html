@@ -1,0 +1,23 @@
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-sm-3'>
+      <app-nav-menu></app-nav-menu>
+    </div>
+    <div class='col-sm-9 body-content'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+
+<div class="layout-topbar">
+  <div class="fluid-container">
+    <div class="row">
+      <div class="col-md-10">
+        <div style="color:white" class="col-md-3">Angular 5+ SignalR Notifications</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-growl [(value)]="msgs"></p-growl>
