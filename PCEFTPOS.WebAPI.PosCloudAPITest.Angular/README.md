@@ -3,7 +3,7 @@
 
 This project represents sample synchronous web application as a point of sale, using the Sandbox PC-EFTPOS Cloud REST API Client for communication with a physical or virtual Cloud-enabled pinpad.
 
-Once the Transaction request is started, the Client waits up to 3 minutes for a *200 OK* response code. Client make pulling notification requests to receive information about Transaction. If the Transaction request is not finished within 3 minutes or the response fails (with 4xx, 5xx codes), the transaction enters recovery mode and another 3 minute timer starts to try and get the transaction status, ie. did the EFT transaction succeed or fail.
+Once the Transaction request is started, the Client waits up to 3 minutes for a *200 OK* response code. Client makes pulling notification requests to receive information about Transaction. If the Transaction request is not finished within 3 minutes or the response fails (with 4xx, 5xx codes), the transaction enters recovery mode and another 3 minute timer starts to try and get the transaction status, ie. did the EFT transaction succeed or fail.
 
 #### Technologies used:
 - Client: Angular 5
