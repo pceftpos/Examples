@@ -5,7 +5,7 @@ This project represents sample asynchronous web application as a point of sale, 
 
 Once the Transaction request is started, the Client gets a *202 Accepted* response code. Client makes pulling notification requests to receive information about Transaction. The server has background services which watch the current transaction's status, waiting for notifications from the REST API, and ultimately a final transaction response. If the final transaction notification is not received within 3 minutes, the transaction enters a recovery mode and another 3 minute timer starts to try and get the transaction status, ie. did the EFT transaction succeed or fail.
 
-#### Technologies used:
+#### Technologies used
 - Client: Angular 5
 - Server: ASP .Net Core 2.1
 
