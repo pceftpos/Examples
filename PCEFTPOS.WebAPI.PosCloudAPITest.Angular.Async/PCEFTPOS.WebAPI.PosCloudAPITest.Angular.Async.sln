@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async", "PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async.csproj", "{62E0A1D0-214B-4F4D-BA25-B308FBFA2584}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62E0A1D0-214B-4F4D-BA25-B308FBFA2584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E0A1D0-214B-4F4D-BA25-B308FBFA2584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E0A1D0-214B-4F4D-BA25-B308FBFA2584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E0A1D0-214B-4F4D-BA25-B308FBFA2584}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27C1D486-631A-4175-B394-B8D3C1FC5DFC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,8 @@
+{
+  "apiServer": { "uri": "<YOUR POS SERVER API URI>/" },
+  "application": {
+    "timer": 1,
+    "defaultAmount": "1.00",
+    "wait": 5
+  }
+}

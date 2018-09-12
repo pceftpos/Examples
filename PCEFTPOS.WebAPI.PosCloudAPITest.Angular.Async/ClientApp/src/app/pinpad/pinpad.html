@@ -1,0 +1,61 @@
+<h1>Pinpad</h1>
+<div class="col-md-12 container">
+  <button class="btn btn-primary normal-button" (click)="onStatus()">Status</button>
+  <button class="btn btn-primary normal-button" (click)="onLogon()">Logon</button>
+</div>
+
+<div class="col-md-12 row">
+  <div *ngIf="statusResponse && showStatusResp" class="col-md-6 container">
+    <div>
+      <label class="box one-line">Response Code: </label><label class="value one-line">{{statusResponse.responseCode}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Response Text: </label><label class="value one-line">{{statusResponse.responseText}}</label>
+    </div>
+    <div>
+      <label class="box one-line">PINPad Version: </label><label class="value one-line">{{statusResponse.pinPadVersion}}</label>
+    </div>
+    <div>
+      <label class="box one-line">PINPad Serial: </label><label class="value one-line">{{statusResponse.pinPadSerialNumber}}</label>
+    </div>
+  </div>
+
+  <div *ngIf="logonResponse && showLogonResp" class="col-md-6 container">
+    <div>
+      <label class="box one-line">Response Code: </label><label class="value one-line">{{logonResponse.responseCode}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Response Text: </label><label class="value one-line">{{logonResponse.responseText}}</label>
+    </div>
+  </div>
+
+  <div *ngIf="logonResponse && showLogonResp && receipt" class="col-md-6">
+    <h4>Receipt</h4>
+    <p class="break-in-lines receipt-font">{{receipt}}</p>
+  </div>
+</div>
+
+<modal id="notification-modal">
+  <div *ngIf="message" class="modal">
+    <div class="modal-body">
+      <h3 class="text-center receipt-font">
+        {{message.text[0]}}
+      </h3>
+      <h3 class="text-center receipt-font">
+        {{message.text[1]}}
+      </h3>
+      <input *ngIf="message.authButton" class="form-control" type="text" [(ngModel)]="authInput" />
+      <div class="col-md-12 row modal-button-div">
+        <!--2d button-->
+        <button *ngIf="message.noButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '2');">No</button>
+        <button *ngIf="message.cancelButton && !message.closeButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '0');">Cancel</button>
+        <button *ngIf="message.okButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '0');">Ok</button>
+        <button *ngIf="message.closeButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '-1');">Close</button>
+        <!--1st button-->
+        <button *ngIf="message.authButton" class="btn modal-button btn-primary modal-marging-right pull-right" (click)="onModalButton('notification-modal', '3');">Auth</button>
+        <button *ngIf="message.yesButton" class="btn btn-primary modal-button modal-marging-right pull-right" (click)="onModalButton('notification-modal', '1');">Yes</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-background"></div>
+</modal>

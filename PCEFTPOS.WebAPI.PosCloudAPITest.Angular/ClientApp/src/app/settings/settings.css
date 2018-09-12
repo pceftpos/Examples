@@ -1,0 +1,37 @@
+.container {
+  padding: 0 0 0 0;
+  margin-right: 0;
+  margin-top: 10px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.value {
+  margin-left: 5px;
+  font-weight: normal;
+}
+
+.one-line {
+  display: inline-block;
+  float: none;
+}
+
+.bold-font {
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+}
+
+.normal-button {
+  width: 100px;
+}
+
+.italic-font {
+  font-style: italic;
+}
