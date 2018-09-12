@@ -43,7 +43,7 @@ Open "appsettings.json" file at project root location and update the `notificati
         
 __Please note, if you want to get notifications from the REST API you should deploy your POS API. The notifications will not be shown at the Client for localhost__
      
-To set POS client communication with server open the "config.json" file found in **PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async\ClientApp\src\assets\config.json** and set the `uri` value under `apiServer`:
+To set POS client communication with server open the "config.json" file found in **PCEFTPOS.WebAPI.PosCloudAPITest.Angular\ClientApp\src\assets\config.json** and set the `uri` value under `apiServer`:
  ```json
    {
          "apiserver": {

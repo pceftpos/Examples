@@ -1,11 +1,12 @@
-Sample projects
-
 #### Projects description
-Projects was created using Angular 5 for client part and ASP.NET Core 2.1 for server
+
+This projects represent sample web applications as a point of sale(POS), using the Sandbox PC-EFTPOS Cloud REST API Client for communication with a physical or virtual Cloud-enabled pinpad.
+
+Projects were created using Angular 5 for POS Client and ASP.NET Core 2.1 for POS Server.
 
 |         Project           |                                       Description                                                              |
 | ------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| PCEFTPOS.WebAPI.PosCloudAPITest.Angular       | Point of sale synchronous  client-server application, which is using timed API calls for communication|
-| PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async | Point of sale asynchronous client-server application, which is using timed API calls for communication|
-| Test.Angular.SignalR                          | Point of sale synchronous  client-server application, which is using SignalR library for communication|
-| Test.Angular.SignalR.Async                    | Point of sale asynchronous client-server application, which is using SignalR library for communication|
+| PCEFTPOS.WebAPI.PosCloudAPITest.Angular       | Sample synchronous web application as a point of sale. Use timed Get requests to get notifications from Cloud REST API. |
+| PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async | Sample asynchronous web application as a point of sale. Use timed Get requests to get notifications from Cloud REST API. |
+| Test.Angular.SignalR                          | Sample synchronous web application as a point of sale. The pinpad notifications are processed with the SignalR library.|
+| Test.Angular.SignalR.Async                    | Sample asynchronous web application as a point of sale.  The pinpad notifications are processed with the SignalR library.|
