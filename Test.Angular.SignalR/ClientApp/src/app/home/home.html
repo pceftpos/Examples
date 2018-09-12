@@ -1,0 +1,112 @@
+<h1>Test POS</h1>
+<form class="form-horizontal" novalidate [formGroup]="transactionForm" autocomplete="off">
+  <div class="col-md-12 container" [ngClass]="{'has-error': displayMessage.txnAmount }">
+
+    <div class='col-md-1 bold-font box container'>Amount: </div>
+    <div class='col-md-2 container'>
+      <input type='text' id='inputAmount' class='form-control' formControlName="txnAmount" />
+      <span class="error" *ngIf="displayMessage.txnAmount">
+        {{displayMessage.txnAmount}}
+      </span>
+    </div>
+
+  </div>
+  <div class="col-md-12 container">
+    <button class="btn btn-primary normal-button" [disabled]='!transactionForm.valid' (click)="onTransaction()">Transaction</button>
+  </div>
+
+</form>
+<div *ngIf="txnResponse" class="col-md-12 row">
+  <div class="col-md-6 container">
+    <div>
+      <label class="box one-line">Response Code: </label><label class="value one-line">{{txnResponse.responseCode}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Response Text: </label><label class="value one-line">{{txnResponse.responseText}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Reference: </label><label class="value one-line">{{txnResponse.txnRef}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Transaction Type: </label><label class="value one-line">{{txnResponse.txnType}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Amount: </label><label class="value one-line">{{(txnResponse.amtPurchase/100).toFixed(2)}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Cash: </label><label class="value one-line">{{(txnResponse.amtCash/100).toFixed(2)}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Tip: </label><label class="value one-line">{{(txnResponse.amtTip/100).toFixed(2)}}</label>
+    </div>
+    <div *ngIf="txnResponse.balanceReceived">
+      <label class="box one-line">Available Balance: </label><label class="value one-line">{{(txnResponse.availableBalance/100).toFixed(2)}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Card Account Type: </label><label class="value one-line">{{txnResponse.cardAccountType}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Card Name: </label><label class="value one-line">{{txnResponse.cardName}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Card Type: </label><label class="value one-line">{{txnResponse.cardType}}</label>
+    </div>
+    <div>
+      <label class="box one-line">CAID: </label><label class="value one-line">{{txnResponse.caid}}</label>
+    </div>
+    <div>
+      <label class="box one-line">CATID: </label><label class="value one-line">{{txnResponse.catid}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Date: </label><label class="value one-line">{{txnResponse.date | date: 'dd/MM/yyyy HH:mm'}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Expire Date: </label><label class="value one-line">{{txnResponse.dateExpire}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Merchant: </label><label class="value one-line">{{txnResponse.merchant}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Pan: </label><label class="value one-line">{{txnResponse.pan}}</label>
+    </div>
+    <div>
+      <label class="box one-line">RRN: </label><label class="value one-line">{{txnResponse.rrn}}</label>
+    </div>
+    <div>
+      <label class="box one-line">Track 2: </label><label class="value one-line">{{txnResponse.track2}}</label>
+    </div>
+  </div>
+  <div *ngIf="receipt" class="col-md-6">
+    <h4>Receipt</h4>
+    <p class="break-in-lines receipt-font">{{receipt}}</p>
+  </div>
+</div>
+
+  <!--<div class="col-md-12 container">
+    <button class="btn btn-primary normal-button" (click)="openModal('notification-modal')">Open Modal</button>
+  </div>-->
+
+  <modal id="notification-modal">
+    <div *ngIf="message" class="modal">
+      <div class="modal-body">
+        <h3 class="text-center receipt-font">
+          {{message.text[0]}}
+        </h3>
+        <h3 class="text-center receipt-font">
+          {{message.text[1]}}
+        </h3>
+        <input *ngIf ="message.authButton" class="form-control" type="text" [(ngModel)]="authInput"/>
+        <div class="col-md-12 row modal-button-div">
+          <!--2d button-->
+          <button *ngIf="message.noButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '2');">No</button>
+          <button *ngIf="message.cancelButton && !message.closeButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '0');">Cancel</button>
+          <button *ngIf="message.okButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '0');">Ok</button>
+          <button *ngIf="message.closeButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '-1');">Close</button>
+          <!--1st button-->
+          <button *ngIf="message.authButton" class="btn modal-button btn-primary modal-marging-right pull-right" (click)="onModalButton('notification-modal', '3');">Auth</button>
+          <button *ngIf="message.yesButton" class="btn btn-primary modal-button modal-marging-right pull-right" (click)="onModalButton('notification-modal', '1');">Yes</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-background"></div>
+  </modal>
