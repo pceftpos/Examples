@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async</title>
+
+    <link rel="stylesheet" href="~/css/simple-sidebar.css">
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <style>
+        #wrapper #sidebar-wrapper {
+            width: 50px;
+        }
+
+        #wrapper .sidebar-nav {
+            display: none;
+        }
+
+        #wrapper.toggled .sidebar-nav {
+            display: block;
+        }
+
+        a#menu-toggle {
+            display: inline-block;
+            width: 100%;
+            line-height: 100%;
+            padding: 0;
+            margin: 0;
+            color: #999999;
+            text-align: right;
+            padding-right: 20px;
+            padding-top: 20px;
+        }
+
+        .voffset1-nav {
+            padding-top: 0px;
+        }
+
+        .voffset2-nav {
+            margin-top: 50px;
+        }
+
+        .hoffset1-nav {
+            padding-right: 10px;
+        }
+
+        .hoffset2-nav {
+            padding-left: 50px;
+        }
+
+        .medium-font {
+            font-size: 20px;
+        }
+
+        .menuitem-height {
+            height: 50px;
+        }
+    </style>
+</head>
+<body class="voffset1-nav">
+    <div id="wrapper" class="toggled">
+        <div id="sidebar-wrapper">
+            <a id="menu-toggle" href="#menu-toggle" class="btn btn-secondary toggle-button">
+                <span id="main_icon" class="navbar-icon fa fa-bars icon medium-font">
+                </span>
+            </a>
+            <ul class="sidebar-nav voffset2-nav">
+                <li class="sidebar-brand menuitem-height">
+                    <a asp-page="/Index" class="navbar-brand">
+                        <span class="fa fa-home hoffset1-nav">
+                        </span> <span>Home</span>
+                    </a>
+                </li>
+                <li class="sidebar-brand menuitem-height">
+                    <a asp-page="/Pinpad" class="navbar-brand">
+                        <span class="fa fa-calculator hoffset1-nav">
+                        </span> <span>Pinpad</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="page-content-wrapper voffset1-nav hoffset2-nav">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <footer></footer>
+        </div>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script>
+        $(document).ready(function () {
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

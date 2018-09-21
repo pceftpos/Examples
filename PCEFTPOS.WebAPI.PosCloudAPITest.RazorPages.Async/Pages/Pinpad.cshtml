@@ -1,0 +1,132 @@
+﻿@page
+@model PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages.PinpadModel
+@{
+    ViewData["Title"] = "Pinpad";
+}
+
+<br />
+<div class="hoffset1-pinpad">
+    <form method="post">
+        <h1 class="voffset1-pinpad voffset2-pinpad">Pinpad</h1>
+        <button type="submit" class="btn btn-primary hoffset2-pinpad" asp-page-handler="DoStatus">Get Status</button>
+        <button type="submit" class="btn btn-primary" asp-page-handler="DoLogon">Logon</button>
+    </form>
+
+
+
+    <br />
+
+    <div class="col-md-12 row no-left-padding">
+        <div id="divStatus" class="col-md-6 container">
+            <div>
+                <label class="box one-line">Response Code: </label><label id="lblResponseCode" class="value one-line"></label>
+            </div>
+            <div>
+                <label class="box one-line">Response Text: </label><label id="lblResponseText" class="value one-line"></label>
+            </div>
+            <div>
+                <label class="box one-line">PINPad Version: </label><label id="lblPinPadVersion" class="value one-line"></label>
+            </div>
+            <div>
+                <label class="box one-line">PINPad Serial: </label><label id="lblPinPadSerialNumber" class="value one-line"></label>
+            </div>
+        </div>
+
+        <div id="divLogon" class="col-md-6 container">
+            <div>
+                <label class="box one-line">Response Code: </label><label id="lblResponseCode" class="value one-line"></label>
+            </div>
+            <div>
+                <label class="box one-line">Response Text: </label><label id="lblResponseText" class="value one-line"></label>
+            </div>
+        </div>
+
+        <div id="divReceipt" class="col-md-6">
+            <h4>Receipt</h4>
+            <p id="txtReceipt" class="break-in-lines receipt-font"></p>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notificationModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body" id="divModalBody">
+                <h3 id="txtContent0" class="text-center receipt-font"></h3>
+                <h3 id="txtContent1" class="text-center receipt-font"></h3>
+            </div>
+            <div class="modal-footer no-border">
+                <div class="col-md-12 row modal-button-div">
+                    <button id="btnClose" class="btn btn-primary modal-button pull-right"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/config.js"></script>
+<script src="~/js/pinpadnotification.js"></script>
+
+<style>
+    .modal {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    .modal-content {
+        width: 400px;
+    }
+
+    button {
+        width: 100px;
+    }
+
+    .hoffset1-pinpad {
+        padding-left: 50px;
+    }
+
+    .hoffset2-pinpad {
+        margin-right: 20px;
+    }
+
+    .voffset1-pinpad {
+        margin-top: 0px;
+    }
+
+    .voffset1-pinpad {
+        margin-bottom: 20px;
+    }
+
+    .value {
+        margin-left: 5px;
+        font-weight: normal;
+    }
+
+    .one-line {
+        display: inline-block;
+        float: none;
+    }
+
+    .break-in-lines {
+        white-space: pre-wrap;
+    }
+
+    .receipt-font {
+        font-family: "Courier New", Courier, monospace;
+    }
+
+    .no-border {
+        border: none;
+    }
+
+    .no-left-padding {
+        padding-left: 0px;
+    }
+
+    #btnAccept, #btnClose, #divStatus, #divReceipt, #divLogon {
+        display: none;
+    }
+</style>
+

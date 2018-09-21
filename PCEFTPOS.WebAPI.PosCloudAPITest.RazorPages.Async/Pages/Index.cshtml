@@ -1,0 +1,201 @@
+﻿@page
+@model PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<br />
+
+<div class="hoffset2-index">
+    <h1 class="hoffset1-index voffset1-index">Test POS</h1>
+    <form class="form-horizontal" autocomplete="off" method="post">
+        <div class="col-md-12 container">
+            <div class='col-md-1 bold-font box container no-left-padding'>Amount: </div>
+            <div class='col-md-2 container'>
+                <input type='text' id='inputAmount' class='form-control' name="amount" value="1.00" />
+                <span id="errorAmt" class="text-danger"></span>
+            </div>
+        </div>
+        <br /><br />
+        <div class="col-md-12 container">
+            <button type="submit" id="btnSubmit" class="btn btn-primary" asp-page-handler="DoTransaction">Transaction</button>
+        </div>
+
+    </form>
+</div>
+
+
+<br /><br /><br />
+
+<div class="col-md-12 row hoffset3-index">
+    <div id="divTransaction" class="col-md-6 container">
+        <div>
+            <label class="box one-line">Response Code: </label><label id="lblResCode" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Response Text: </label><label id="lblResText" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Reference: </label><label id="lblRef" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Transaction Type: </label><label id="lblTranType" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Amount: </label><label id="lblAmount" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Cash: </label><label id="lblCash" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Tip: </label><label id="lblTip" class="value one-line"></label>
+        </div>
+        <div id="divAvBal">
+            <label class="box one-line">Available Balance: </label><label id="lblAvBal" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Card Account Type: </label><label id="lblAccType" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Card Name: </label><label id="lblCardName" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Card Type: </label><label id="lblCardType" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">CAID: </label><label id="lblCAID" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">CATID: </label><label id="lblCATID" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Date: </label><label id="lblDate" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Expiry Date: </label><label id="lblExpDate" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Merchant: </label><label id="lblMerchant" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Pan: </label><label id="lblPan" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">RRN: </label><label id="lblRRN" class="value one-line"></label>
+        </div>
+        <div>
+            <label class="box one-line">Track 2: </label><label id="lblTrack2" class="value one-line"></label>
+        </div>
+    </div>
+    <div id="divReceipt" class="col-md-6">
+        <h4>Receipt</h4>
+        <p id="txtReceipt" class="break-in-lines receipt-font"></p>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="notificationModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body" id="divModalBody">
+                <h3 id="txtContent0" class="text-center receipt-font"></h3>
+                <h3 id="txtContent1" class="text-center receipt-font"></h3>
+                <input id="txtAuth" class="form-control" type="text" />
+            </div>
+            <div class="modal-footer no-border">
+                <div class="col-md-12 row modal-button-div">
+                    <!--2nd button-->
+                    <button id="btnClose" class="btn btn-primary modal-button pull-right"></button>
+                    <!--1st button-->
+                    <button id="btnAccept" class="btn btn-primary modal-button right-margin1 pull-right">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/config.js"></script>
+<script src="~/js/transactionnotification.js"></script>
+
+<style>
+    .modal {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    .modal-content {
+        width: 400px;
+    }
+
+    .no-left-padding {
+        padding-left: 0px;
+    }
+
+    .no-border {
+        border:none;
+    }
+
+    .hoffset1-index {
+        padding-left: 13px;
+    }
+
+    .hoffset2-index {
+        padding-left: 40px;
+    }
+
+    .hoffset3-index {
+        padding-left: 55px;
+    }
+
+    .voffset1-index {
+        margin-top: 0px;
+    }
+
+    button {
+        width: 100px;
+    }
+
+    .right-margin1 {
+        margin-right: 5px;
+    }
+
+    .box {
+        display: flex;
+        align-items: center;
+        height: 30px;
+    }
+
+    .bold-font {
+        font-weight: bold;
+    }
+
+    .value {
+        margin-left: 5px;
+        font-weight: normal;
+    }
+
+    .one-line {
+        display: inline-block;
+        float: none;
+    }
+
+    .break-in-lines {
+        white-space: pre-wrap;
+    }
+
+    .receipt-font {
+        font-family: "Courier New", Courier, monospace;
+    }
+
+    #btnAccept, #btnClose, #divTransaction, #divReceipt, #txtAuth {
+        display: none;
+    }
+
+    body.modal-open div.modal-backdrop {
+        z-index: 1;
+    }
+</style>
