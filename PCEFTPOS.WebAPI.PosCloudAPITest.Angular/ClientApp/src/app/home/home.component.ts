@@ -93,6 +93,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     
   onTransaction() {
     this.transaction = null;
+    this.txnResponse = null;
     this.receipt = ``;
     if (this.transactionForm.valid) {
       // Copy the form values over the contact object values
@@ -108,7 +109,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.commonService.getMessage()
             .subscribe(
             response => {              
-              //this.showMessage(response);
               this.receiveMessage(response);
             }
             )

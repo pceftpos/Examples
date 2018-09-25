@@ -41,12 +41,15 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Controllers
         [HttpGet("token")]
         public async Task<TokenResponse> GetTokenAsync()
         {
-            var url = appSettings.TokenServer + "tokens/cloudpos";
+            var url = new Uri(new Uri(appSettings.TokenServer), "tokens/cloudpos");
             var body = new TokenRequest()
             {
                 Username = appSettings.PinpadUsername,
                 Password = appSettings.PinpadPassword,
                 PairCode = appSettings.PinpadPairCode,
+                PosName = appSettings.PosName,
+                PosVersion = appSettings.PosVersion,
+                PosId = new Guid(appSettings.PosId)
             };
 
             authClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -83,12 +86,10 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Controllers
                 Request = new EFTLogonRequest()
                 {                   
                     LogonType = " ",                    
-                    ReceiptPrintMode = "0",
-                    ReceiptCutMode = "0",
+                    ReceiptAutoPrint = "0",
+                    CutReceipt = "0",
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -137,9 +138,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Controllers
                 {
                     StatusType = "0",
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,                    
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -191,9 +190,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Controllers
                     TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
                     AmtPurchase = (int)(amount * DOLLAR_TO_CENT),
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -280,9 +277,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Controllers
                 Request = new EFTSendKeyRequest()
                 {
                     Data = key.Data,
-                    Key = key.Key,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Key = key.Key
                 },                
                 Notification = new Notification
                 {

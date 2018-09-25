@@ -16,6 +16,9 @@
             SessionId = sessionId;
         }
 
+        /// <summary> ResponseType </summary>       
+        public string ResponseType { get; set; }
+
         /// <summary> Session id</summary>       
         public string SessionId { get; set; }
 

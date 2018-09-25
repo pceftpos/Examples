@@ -52,16 +52,19 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// </summary>
         /// <returns>Return token response</returns>
         [HttpGet("token")]
-        public async Task<TokenResponse> GetToken()
+        public async Task<TokenResponse> GetTokenAsync()
         {
             var authClient = clients.GetAuthClient();
 
-            var url = appSettings.TokenServer + "tokens/cloudpos";
+            var url = new Uri(new Uri(appSettings.TokenServer), "tokens/cloudpos");
             var body = new TokenRequest()
             {
                 Username = appSettings.PinpadUsername,
                 Password = appSettings.PinpadPassword,
                 PairCode = appSettings.PinpadPairCode,
+                PosName = appSettings.PosName,
+                PosVersion = appSettings.PosVersion,
+                PosId = new Guid(appSettings.PosId)
             };
 
             authClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -74,7 +77,7 @@ namespace Test.Angular.SignalR.Async.Controllers
 
             if (res.IsSuccessStatusCode)
             {
-                var tokenResponse = res.Content.ReadAsAsync<TokenResponse>()?.Result;
+                var tokenResponse = await res.Content.ReadAsAsync<TokenResponse>();
                 token = tokenResponse?.Token;
                 return tokenResponse;
             }
@@ -87,7 +90,7 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// </summary>
         /// <returns>Return logon response</returns>
         [HttpGet("pinpad/logon")]
-        public async Task<ActionResult<EFTLogonResponse>> GetPinpadLogon()
+        public async Task<ActionResult<EFTLogonResponse>> GetPinpadLogonAsync()
         {
             var sessionId = Guid.NewGuid();
 
@@ -96,14 +99,12 @@ namespace Test.Angular.SignalR.Async.Controllers
             var request = new ApiRequest<EFTLogonRequest>()
             {
                 Request = new EFTLogonRequest()
-                {                   
-                    LogonType = " ",                    
-                    ReceiptPrintMode = "0",
-                    ReceiptCutMode = "0",
+                {
+                    LogonType = " ",
+                    ReceiptAutoPrint = "0",
+                    CutReceipt = "0",
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -113,7 +114,7 @@ namespace Test.Angular.SignalR.Async.Controllers
 
             if (string.IsNullOrEmpty(token))
             {
-                token = GetToken().Result?.Token;
+                token = (await GetTokenAsync())?.Token;
             }
 
             var apiClient = clients.GetAPIClient();
@@ -137,7 +138,7 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// </summary>
         /// <returns>Return pinpad status response</returns>
         [HttpGet("pinpad/status")]
-        public async Task<ActionResult<EFTStatusResponse>> GetPinpadStatus()
+        public async Task<ActionResult<EFTStatusResponse>> GetPinpadStatusAsync()
         {
             var sessionId = Guid.NewGuid();
 
@@ -149,9 +150,7 @@ namespace Test.Angular.SignalR.Async.Controllers
                 {
                     StatusType = "0",
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,                    
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -161,7 +160,7 @@ namespace Test.Angular.SignalR.Async.Controllers
 
             if (string.IsNullOrEmpty(token))
             {
-                token = GetToken().Result?.Token;
+                token = (await GetTokenAsync())?.Token;
             }
 
             var apiClient = clients.GetAPIClient();
@@ -186,7 +185,7 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// <param name="amount">Amount of transaction</param>
         /// <returns>Return transaction response</returns>
         [HttpPost("transaction")]
-        public async Task<ActionResult<string>> PostTransaction([FromBody] float amount)
+        public async Task<ActionResult<string>> PostTransactionAsync([FromBody] float amount)
         {
             var sessionId = Guid.NewGuid();
 
@@ -200,9 +199,7 @@ namespace Test.Angular.SignalR.Async.Controllers
                     TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
                     AmtPurchase = (int)(amount * DOLLAR_TO_CENT),
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -212,7 +209,7 @@ namespace Test.Angular.SignalR.Async.Controllers
 
             if (string.IsNullOrEmpty(token))
             {
-                token = GetToken().Result?.Token;
+                token = (await GetTokenAsync())?.Token;
             }
 
             var apiClient = clients.GetAPIClient();
@@ -223,7 +220,7 @@ namespace Test.Angular.SignalR.Async.Controllers
             try
             {
                 var activeTxn = new ActiveSession() { SessionId = sessionId.ToString(), Expire = DateTime.Now.AddMinutes(TRX_EXPIRATION_MINS).Ticks };
-                await sessionRepository.AddSession(activeTxn);
+                await sessionRepository.AddSessionAsync(activeTxn);
 
                 var response = await apiClient.PostAsync(url, content);
 
@@ -246,7 +243,7 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// <param name="key">Button key</param>
         /// <returns></returns>
         [HttpPost("sendkey")]
-        public async Task PostSendKey([FromBody] EFTSendKeyRequest key)
+        public async Task PostSendKeyAsync([FromBody] EFTSendKeyRequest key)
         {
             if (key == null)
             {
@@ -260,9 +257,7 @@ namespace Test.Angular.SignalR.Async.Controllers
                 Request = new EFTSendKeyRequest()
                 {
                     Data = key.Data,
-                    Key = key.Key,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Key = key.Key
                 },                
                 Notification = new Notification
                 {
@@ -272,7 +267,7 @@ namespace Test.Angular.SignalR.Async.Controllers
 
             if (string.IsNullOrEmpty(token))
             {
-                token = GetToken().Result?.Token;
+                token = (await GetTokenAsync())?.Token;
             }
 
             var apiClient = clients.GetAPIClient();

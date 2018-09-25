@@ -14,8 +14,6 @@ export class TransactionResponse {
   dateExpiry: string;
   track2: string;
   cardAccountType: string;
-  //TODO
-  //TxnFlags: string;
   balanceReceived: boolean;
   availableBalance: number;
   clearedFundsBalance: number;

@@ -93,10 +93,10 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async.Helpers
         /// <summary>
         /// Timer work: call GetTransaction API 
         /// </summary>
-        /// <param name="cancelerationToken"></param>
-        private async void StartGetTransactionAsync(object cancelerationToken)
+        /// <param name="cancellationToken"></param>
+        private async void StartGetTransactionAsync(object cancellationToken)
         {
-            CancellationTokenSource cts = (CancellationTokenSource)cancelerationToken;
+            CancellationTokenSource cts = (CancellationTokenSource)cancellationToken;
 
             var apiClient = clients.GetAPIClient();
             var token = (await clients.GetTokenAsync())?.Token;
@@ -128,7 +128,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async.Helpers
                                     Response = apiResponse.Response,
                                     SessionId = failedSession.SessionId,
                                     Text = apiResponse?.Response?.ResponseText == null ? new string[] { "", "" } : apiResponse?.Response?.ResponseText.Split("\n"), 
-                                    Type = apiResponse?.Response?.ResponseType,
+                                    Type = apiResponse?.ResponseType,
                                     CancelButton = true,
                                 };
 

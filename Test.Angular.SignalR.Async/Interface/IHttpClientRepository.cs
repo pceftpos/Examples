@@ -13,7 +13,7 @@ namespace Test.Angular.SignalR.Async
         /// Get token
         /// </summary>
         /// <returns></returns>
-        Task<TokenResponse> GetToken();
+        Task<TokenResponse> GetTokenAsync();
 
         /// <summary>
         /// Get API client

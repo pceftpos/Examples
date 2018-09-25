@@ -37,7 +37,7 @@ namespace Test.Angular.SignalR.Controllers
             {
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,          
+                Type = apiResponse?.ResponseType,          
                 CancelButton = true,
             };
             
@@ -59,7 +59,7 @@ namespace Test.Angular.SignalR.Controllers
             {
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true,
             };
 
@@ -88,7 +88,7 @@ namespace Test.Angular.SignalR.Controllers
                 {
                     SessionId = session,
                     Text = apiResponse.Response.DisplayText ?? new string[] { "", "" },
-                    Type = apiResponse.Response.ResponseType,
+                    Type = apiResponse.ResponseType,
                     AuthButton = apiResponse.Response.AuthoriseKeyFlag,
                     YesButton = apiResponse.Response.AcceptYesKeyFlag,
                     NoButton = apiResponse.Response.DeclineNoKeyFlag,
@@ -116,7 +116,7 @@ namespace Test.Angular.SignalR.Controllers
             {
                 SessionId = session,
                 Text = apiResponse?.Response?.ReceiptText ?? (new string[] { "", "" }),
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true,
             };
             
@@ -138,7 +138,7 @@ namespace Test.Angular.SignalR.Controllers
             {
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true,
             };
                         

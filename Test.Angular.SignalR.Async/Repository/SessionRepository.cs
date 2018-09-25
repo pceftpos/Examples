@@ -12,7 +12,7 @@ namespace Test.Angular.SignalR.Async
         private readonly List<ActiveSession> failedSessions = new List<ActiveSession>();
         private readonly SemaphoreSlim messagesLock = new SemaphoreSlim(1, 1);
         
-        public async Task AddSession(ActiveSession txn)
+        public async Task AddSessionAsync(ActiveSession txn)
         {
             await messagesLock.WaitAsync();
             try
@@ -28,7 +28,7 @@ namespace Test.Angular.SignalR.Async
             }
         }
         
-        public async Task DeleteSession(string sessionId)
+        public async Task DeleteSessionAsync(string sessionId)
         {
             await messagesLock.WaitAsync();
             try
@@ -48,7 +48,7 @@ namespace Test.Angular.SignalR.Async
             }
         }       
 
-        public async Task<ActiveSession> GetOldestSession()
+        public async Task<ActiveSession> GetOldestSessionAsync()
         {
             await messagesLock.WaitAsync();
             try
@@ -62,7 +62,7 @@ namespace Test.Angular.SignalR.Async
             }
         }
 
-        public async Task AddFailedSession(ActiveSession session)
+        public async Task AddFailedSessionAsync(ActiveSession session)
         {
             await messagesLock.WaitAsync();
             try
@@ -78,7 +78,7 @@ namespace Test.Angular.SignalR.Async
             }
         }
 
-        public async Task<ActiveSession> GetFailedSession()
+        public async Task<ActiveSession> GetFailedSessionAsync()
         {
             await messagesLock.WaitAsync();
             try
@@ -92,7 +92,7 @@ namespace Test.Angular.SignalR.Async
             }
         }
 
-        public async Task DeleteFailedSession(string sessionId)
+        public async Task DeleteFailedSessionAsync(string sessionId)
         {
             await messagesLock.WaitAsync();
             try

@@ -77,8 +77,7 @@ export class PinpadComponent {
     this.showLogonResp = true;
     this.pinpadService.getLogon()
       .subscribe(
-        response => {
-          //this.assignLogonResponse(response);
+        response => {          
         },
         error => {
           console.error(error)

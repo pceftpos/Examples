@@ -222,16 +222,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.openModal("notification-modal");
     }
   }
-
-  //showMessage(message: Message) {
-  //  if (message && message.text) {
-  //    var str = message.text[0] = `\n`;
-  //    for (var i = 1; i < message.text.length; i++) {
-  //      str = message.text[i] + `\n`;
-  //    }
-
-  //    this.toastr.success(str, message.type);
-  //  }
-  //}
-
 }

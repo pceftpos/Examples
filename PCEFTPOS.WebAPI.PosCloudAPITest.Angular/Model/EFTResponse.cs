@@ -6,11 +6,6 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Model
     public abstract class EFTResponse
     {
         /// <summary>
-        /// Response type
-        /// </summary>
-        public string ResponseType { get; set; }
-
-        /// <summary>
         /// Paired request type
         /// </summary>
         protected Type pairedRequestType = null;
@@ -27,7 +22,6 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Model
             }
 
             this.pairedRequestType = pairedRequestType;
-            this.ResponseType = responseType;
         }
 
         /// <summary>

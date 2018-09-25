@@ -15,6 +15,9 @@
             Response = data;
         }
 
+        /// <summary> ResponseType </summary>       
+        public string ResponseType { get; set; }
+
         /// <summary>
         /// Response body
         /// </summary>

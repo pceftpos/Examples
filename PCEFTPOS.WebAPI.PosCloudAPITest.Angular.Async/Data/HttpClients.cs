@@ -32,7 +32,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async.Data
 
         public async Task<TokenResponse> GetTokenAsync()
         {
-            var url = appSettings.TokenServer + "tokens/cloudpos";
+            var url = new Uri(new Uri(appSettings.TokenServer), "tokens/cloudpos");
             var body = new TokenRequest()
             {
                 Username = appSettings.PinpadUsername,

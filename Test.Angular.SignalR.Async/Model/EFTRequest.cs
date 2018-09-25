@@ -7,18 +7,6 @@ namespace Test.Angular.SignalR.Async.Model
     public abstract class EFTRequest
     {
         /// <summary>
-        /// Name of the POS that sent this request
-        /// </summary>
-        [Required]
-        public string PosName { get; set; }
-
-        /// <summary>
-        /// Version of the POS that sent this request
-        /// </summary>
-        [Required]
-        public string PosVersion { get; set; }
-
-        /// <summary>
         /// Flag if it's start of transaction request
         /// </summary>
         protected bool isStartOfTransactionRequest = true;

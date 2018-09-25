@@ -34,10 +34,10 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Async.Model
 
         /// <summary>Indicates whether to trigger receipt events. Defaults to '0' (POSPrinter)</summary>
         [Required, StringLength(1)]
-        public string ReceiptPrintMode { get; set; } = "0";
+        public string ReceiptAutoPrint { get; set; } = "0";
 
         /// <summary>Indicates whether PC-EFTPOS should cut receipts. Defaults to '0' (DontCut)</summary>
         [Required, StringLength(1)]
-        public string ReceiptCutMode { get; set; } = "0";
+        public string CutReceipt { get; set; } = "0";
     }
 }

@@ -15,6 +15,9 @@
         /// <summary> Point of sale version</summary>
         public string PosVersion { get; set; }
 
+        /// <summary> Poin of sale unique GUID</summary>
+        public string PosId { get; set; }
+
         /// <summary> Notifications URI</summary>
         public string NotificationUri { get; set; }
 

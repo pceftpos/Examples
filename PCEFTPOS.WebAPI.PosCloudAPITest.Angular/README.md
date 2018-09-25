@@ -18,8 +18,8 @@ Once the Transaction request is started, the Client waits up to 3 minutes for a 
 | ------------------------|-----------------------------------------------------------------------|
 | POS                     | Point of sale                                                         |
 | Client, POS Client      | Point of sale client application, In this project it's an Angular 5 application in the `ClientApp` folder |
-| Server, POS Server, API | Point of sale server application. In this project it's a .Net Core 2.1 application|
-| REST API                | PC-EFTPOS Cloud REST API                                              |
+| Server, POS Server      | Point of sale server application. In this project it's a .Net Core 2.1 application|
+| REST API, API           | PC-EFTPOS Cloud REST API                                              |
 | Notifications           | Messages from the REST API, which include messages from the pinpad screen, receipts and the final transaction response.               |
 | Notification pulling request | Get requests from Client to Server to check if there is any notifications from REST API |
 
@@ -29,11 +29,14 @@ Once the Transaction request is started, the Client waits up to 3 minutes for a 
 * You will need a PC-EFTPOS Cloud Username and Password
 * Follow the bank/pinpad instructions to login and get the Pairing Code
 ##### 2. Set up project settings
-Open "appsettings.json" file at project root location and update the `notificationUri`, `pinpadUsername`, `pinpadPassword`, `pinpadPairCode` values under the `AppSettings` section with your project URI and the parameters from the pinpad:
+Open "appsettings.json" in the project root and update the `posName`, `posVersion`, `posId` , `notificationUri`, `pinpadUsername`, `pinpadPassword`, `pinpadPairCode` values under the `AppSettings` section with your project URI and the parameters from the POS and pinpad:
 ```json
       {
 	      "AppSettings": {
-			   "notificationUri": "<YOUR POS SERVER API URI>/pceftposnotify/{{session}}/{{type}}",
+			   "posName": "<YOUR POS NAME>",
+			   "posVersion": "<YOUR POS VERSION>",
+			   "posId": "<YOUR POS GUID>",
+			   "notificationUri": "<YOUR POS SERVER API URI>/pceftposnotify/{{sessionid}}/{{type}}",
 			   "pinpadUsername": "<YOUR PINPAD USERNAME>",
 			   "pinpadPassword": "<YOUR PINPAD PASSWORD>",
 			   "pinpadPairCode": "<YOUR PINPAD PAIRING CODE>"
@@ -41,13 +44,13 @@ Open "appsettings.json" file at project root location and update the `notificati
       }
 ```
         
-__Please note, if you want to get notifications from the REST API you should deploy your POS API. The notifications will not be shown at the Client for localhost__
+__Please note, if you want to get notifications from the REST API you should deploy your POS server. The notifications will not be shown at the Client for localhost__
      
 To set POS client communication with server open the "config.json" file found in **PCEFTPOS.WebAPI.PosCloudAPITest.Angular\ClientApp\src\assets\config.json** and set the `uri` value under `apiServer`:
  ```json
    {
          "apiserver": {
-              "uri": "<YOUR POS SERVER API URI>/",
+              "uri": "<YOUR POS SERVER URI>/",
           }
    }
 ```
@@ -58,8 +61,8 @@ In the project properties under the Debug section make sure you use:
 * Launch: IIS Express
 * Enable SSL checkbox is selected
     
-__You can use `https://localhost:<YOUR PORT NUMBER>/` as `<YOUR POS SERVER API URI>` mentioned above, but you will not get the notifications for localhost__
-If you decide to use localhost, please update the files mentioned in step 2 with `https://localhost:<YOUR PORT NUMBER>/api/v1` instead of `<YOUR POS SERVER API URI>`
+__You can use `https://localhost:<YOUR PORT NUMBER>/` as `<YOUR POS SERVER URI>` mentioned above, but you will not get the notifications for localhost__
+If you decide to use localhost, please update the files mentioned in step 2 with `https://localhost:<YOUR PORT NUMBER>/api/v1` instead of `<YOUR POS SERVER URI>`
 
 Make sure you have the certificate to run the service over SSL. When prompted, you can safely accept the IIS Express generated certificate for this test application:
 
@@ -74,7 +77,7 @@ Build the project, make sure you use the right NuGet packages and other Dependen
     Microsoft.NETCore.App (2.1.0)
 
 ## __Usage__
-__Please note, if you want to get notifications from the REST API you should deploy your POS API. The notifications will not be shown at the Client for localhost__
+__Please note, if you want to get notifications from the REST API you should deploy your POS server. The notifications will not be shown at the Client for localhost__
 
 Once the application is running you will see the following page with Home, Pinpad and Settings tabs.<br/>
 ![POS Start](Docs/pos_txn.png)
@@ -113,7 +116,7 @@ and the POS Client will show the transaction data (Receipt may be shown or not. 
 ![POS Txn Cancelled](Docs/pos_txn_cancelled.png)
 
 ##### Settings
-On the Settings tab you can update the POS Server API and default transaction amount used on the Home page. This is stored in **ClientApp\src\assets\config.json**<br/>
+On the Settings tab you can update the POS Server and default transaction amount used on the Home page. This is stored in **ClientApp\src\assets\config.json**<br/>
 *Notification Timer* represents frequency of notification pulling requests from Client<br/>
 *Continue pulling timer* shows the time period for continue notification pulling requests from Client after the Responce for main action (Transaction, Logon) was received. This is need to make sure all notifications was pulled.<br/>
 ![POS Settings](Docs/pos_settings.png)

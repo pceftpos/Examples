@@ -1,4 +1,4 @@
 {
-  "apiServer": { "uri": "<YOUR POS SERVER API URI>/" },
+  "apiServer": { "uri": "<YOUR POS SERVER URI>/" },
   "application": { "defaultAmount": "1.00" }
 }

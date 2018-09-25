@@ -21,11 +21,11 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Model
 
         /// <summary>Indicates whether to trigger receipt events. Defaults to '0' (POSPrinter)</summary>
         [StringLength(1)]
-        public string ReceiptPrintMode { get; set; }
+        public string ReceiptAutoPrint { get; set; }
 
         /// <summary>Indicates whether PC-EFTPOS should cut receipts. Defaults to '0' (DontCut)</summary>
         [StringLength(1)]
-        public string ReceiptCutMode { get; set; }
+        public string CutReceipt { get; set; }
 
         /// <summary>Additional information sent with the response</summary>
         public Newtonsoft.Json.Linq.JObject PurchaseAnalysisData { get; set; }
@@ -104,7 +104,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Model
 
         /// <summary>The account to use for this transaction. Defaults to ' ' (prompt user)</summary>
         [StringLength(1)]
-        public string CardAccountType { get; set; }
+        public string AccountType { get; set; }
 
         /// <summary>The retrieval reference number for the transaction. Only required for some transactiont types</summary>
         [StringLength(12)]
@@ -112,5 +112,10 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Model
 
         /// <summary>CVV. Defaults to 0</summary>
         public int? CVV { get; set; }
+
+        /// <summary>
+        /// Basket data to be sent as a part of this transaction
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject Basket { get; set; }
     }
 }

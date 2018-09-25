@@ -26,7 +26,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Model
         public string RRN { get; set; }
 
         /// <summary>Indicates which settlement batch this transaction will be included in.</summary>
-        public DateTime SettlementDate { get; set; }
+        public DateTime DateSettlement { get; set; }
 
         /// <summary>The cash amount for the transaction. This property is mandatory for a 'C' transaction type.</summary>
         public int AmtCash { get; set; }
@@ -56,7 +56,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Model
         public string Track2 { get; set; }
 
         /// <summary>The account to use for this transaction. Use ' ' to prompt user to enter the account type</summary>
-        public string CardAccountType { get; set; }
+        public string AccountType { get; set; }
 
         /// <summary>Indicates if an available balance is present in the response.</summary>
         public bool? BalanceReceived { get; set; }

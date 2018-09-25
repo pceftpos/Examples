@@ -61,7 +61,7 @@ namespace Test.Angular.SignalR.Async.Helpers
         /// <returns></returns>
         public Task StartAsync(CancellationToken cancellationToken)
         {            
-            mainTimer = new Timer(DoWork, cancellationToken, TimeSpan.Zero, TimeSpan.FromSeconds(TRX_FAILURE_PING_SECS)); 
+            mainTimer = new Timer(DoWorkAsync, cancellationToken, TimeSpan.Zero, TimeSpan.FromSeconds(TRX_FAILURE_PING_SECS)); 
 
             return Task.CompletedTask;
         }
@@ -71,22 +71,22 @@ namespace Test.Angular.SignalR.Async.Helpers
         /// If there is any start GetTransaction timer
         /// </summary>
         /// <param name="cancellationToken"></param>
-        private void DoWork(object cancellationToken)
+        private async void DoWorkAsync(object cancellationToken)
         {
             var apiClient = clients.GetAPIClient();
-            var token = clients.GetToken()?.Result?.Token;
+            var token = (await clients.GetTokenAsync())?.Token;
 
             if (apiClient != null && !string.IsNullOrEmpty(token) && failedSession == null)
             {
-                failedSession = sessionRepository.GetFailedSession().Result;
+                failedSession = await sessionRepository.GetFailedSessionAsync();
 
                 if (failedSession != null && failedSession.Expire < DateTime.Now.Ticks)
                 {
-                    sessionRepository.DeleteFailedSession(failedSession.SessionId);
+                    await sessionRepository.DeleteFailedSessionAsync(failedSession.SessionId);
                                         
                     var cts = new CancellationTokenSource(TimeSpan.FromMinutes(TRX_RESPONSE_TIMEOUT_MINS));
 
-                    timer = new Timer(StartGetTransaction, cts, 0, Timeout.Infinite);
+                    timer = new Timer(StartGetTransactionAsync, cts, 0, Timeout.Infinite);
                 }
             }
         }
@@ -94,13 +94,13 @@ namespace Test.Angular.SignalR.Async.Helpers
         /// <summary>
         /// Timer work: call GetTransaction API 
         /// </summary>
-        /// <param name="cancelerationToken"></param>
-        private void StartGetTransaction(object cancelerationToken)
+        /// <param name="cancellationToken"></param>
+        private async void StartGetTransactionAsync(object cancellationToken)
         {
-            CancellationTokenSource cts = (CancellationTokenSource)cancelerationToken;
+            CancellationTokenSource cts = (CancellationTokenSource)cancellationToken;
 
             var apiClient = clients.GetAPIClient();
-            var token = clients.GetToken()?.Result?.Token;
+            var token = (await clients.GetTokenAsync())?.Token;
 
             if (apiClient != null && !string.IsNullOrEmpty(token) && failedSession != null)
             {
@@ -115,11 +115,11 @@ namespace Test.Angular.SignalR.Async.Helpers
 
                     try
                     {
-                        var response = apiClient.GetAsync(url);
+                        var response = await apiClient.GetAsync(url);
 
-                        if (response.Result != null && response.Result.IsSuccessStatusCode)
+                        if (response != null && response.IsSuccessStatusCode)
                         {
-                            var apiResponse = response.Result.Content.ReadAsAsync<ApiResponse<EFTTransactionResponse>>()?.Result;
+                            var apiResponse = await response.Content.ReadAsAsync<ApiResponse<EFTTransactionResponse>>();
                             if (apiResponse != null && apiResponse.Response != null)
                             {
                                 transaction = apiResponse;
@@ -129,13 +129,13 @@ namespace Test.Angular.SignalR.Async.Helpers
                                     Response = apiResponse.Response,
                                     SessionId = failedSession.SessionId,
                                     Text = apiResponse?.Response?.ResponseText == null ? new string[] { "", "" } : apiResponse?.Response?.ResponseText.Split("\n"), 
-                                    Type = apiResponse?.Response?.ResponseType,
+                                    Type = apiResponse?.ResponseType,
                                     CancelButton = true,
                                 };
 
                                 StopTimer(cts.Token);
 
-                                notifyHub.Clients.All.SendAsync("Message", message);
+                                await notifyHub.Clients.All.SendAsync("Message", message);
                             }
                         }                        
                     }
@@ -155,7 +155,7 @@ namespace Test.Angular.SignalR.Async.Helpers
                         CancelButton = true,
                     };
                     
-                    notifyHub.Clients.All.SendAsync("Message", message);
+                    await notifyHub.Clients.All.SendAsync("Message", message);
 
                     StopTimer(cts.Token);
                 }

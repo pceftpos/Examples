@@ -25,15 +25,18 @@ namespace Test.Angular.SignalR.Async
             token = string.Empty;
         }
 
-        public async Task<TokenResponse> GetToken()
+        public async Task<TokenResponse> GetTokenAsync()
         {
-            var url = appSettings.TokenServer + "tokens/cloudpos";
+            var url = new Uri(new Uri(appSettings.TokenServer), "tokens/cloudpos");
 
             var body = new TokenRequest()
             {
                 Username = appSettings.PinpadUsername,
                 Password = appSettings.PinpadPassword,
                 PairCode = appSettings.PinpadPairCode,
+                PosName = appSettings.PosName,
+                PosVersion = appSettings.PosVersion,
+                PosId = new Guid(appSettings.PosId)
             };
 
             authClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -46,7 +49,7 @@ namespace Test.Angular.SignalR.Async
 
             if (res.IsSuccessStatusCode)
             {
-                var tokenResponse = res.Content.ReadAsAsync<TokenResponse>()?.Result;
+                var tokenResponse = await res.Content.ReadAsAsync<TokenResponse>();
                 token = tokenResponse?.Token;
                 return tokenResponse;
             }

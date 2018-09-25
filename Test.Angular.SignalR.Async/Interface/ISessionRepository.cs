@@ -13,39 +13,39 @@ namespace Test.Angular.SignalR.Async
         /// </summary>
         /// <param name="txn"></param>
         /// <returns></returns>
-        Task AddSession(ActiveSession txn);
+        Task AddSessionAsync(ActiveSession txn);
 
         /// <summary>
         /// Get the oldest session from the list
         /// </summary>
         /// <returns></returns>
-        Task<ActiveSession> GetOldestSession();
+        Task<ActiveSession> GetOldestSessionAsync();
 
         /// <summary>
         /// Delete completed sessions from session list
         /// </summary>
         /// <param name="sessionId"></param>
         /// <returns></returns>
-        Task DeleteSession(string sessionId);
+        Task DeleteSessionAsync(string sessionId);
         
         /// <summary>
         /// Add expired session to the failed sessions list
         /// </summary>
         /// <param name="txn"></param>
         /// <returns></returns>
-        Task AddFailedSession(ActiveSession txn);
+        Task AddFailedSessionAsync(ActiveSession txn);
 
         /// <summary>
         /// Get session from expired sessions list
         /// </summary>
         /// <returns></returns>
-        Task<ActiveSession> GetFailedSession();
+        Task<ActiveSession> GetFailedSessionAsync();
 
         /// <summary>
         /// Delete session from expired sessions list
         /// </summary>
         /// <param name="sessionId"></param>
         /// <returns></returns>
-        Task DeleteFailedSession(string sessionId);
+        Task DeleteFailedSessionAsync(string sessionId);
     }
 }

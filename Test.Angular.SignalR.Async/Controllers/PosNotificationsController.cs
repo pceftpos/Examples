@@ -37,14 +37,14 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// <param name="apiResponse">Logon data</param>
         /// <returns></returns>
         [HttpPost("{session}/logon")]
-        public async Task<ActionResult> PostLogonNotification([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTLogonResponse> apiResponse)
+        public async Task<ActionResult> PostLogonNotificationAsync([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTLogonResponse> apiResponse)
         {
             var message = new Message
             {
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" }, 
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true,
             };
             
@@ -60,7 +60,7 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// <param name="apiResponse">Transaction data</param>
         /// <returns></returns>
         [HttpPost("{session}/transaction")]
-        public async Task<ActionResult> PostTransactionNotification([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTTransactionResponse> apiResponse)
+        public async Task<ActionResult> PostTransactionNotificationAsync([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTTransactionResponse> apiResponse)
         {
             //Stop timer
             var message = new Message
@@ -68,11 +68,11 @@ namespace Test.Angular.SignalR.Async.Controllers
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" }, 
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true,
             };
 
-            await sessionRepository.DeleteSession(session);
+            await sessionRepository.DeleteSessionAsync(session);
 
             await notifyHub.Clients.All.SendAsync("Message", message);
 
@@ -86,7 +86,7 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// <param name="apiResponse">Display data</param>
         /// <returns></returns>
         [HttpPost("{session}/display")]
-        public async Task<ActionResult> PostDisplayNotification([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTDisplayResponse> apiResponse)
+        public async Task<ActionResult> PostDisplayNotificationAsync([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTDisplayResponse> apiResponse)
         {
             if (apiResponse?.Response != null)
             {
@@ -99,7 +99,7 @@ namespace Test.Angular.SignalR.Async.Controllers
                 {
                     SessionId = session,
                     Text = apiResponse.Response.DisplayText ?? new string[] { "", "" },
-                    Type = apiResponse.Response.ResponseType,
+                    Type = apiResponse.ResponseType,
                     AuthButton = apiResponse.Response.AuthoriseKeyFlag,
                     YesButton = apiResponse.Response.AcceptYesKeyFlag,
                     NoButton = apiResponse.Response.DeclineNoKeyFlag,
@@ -121,14 +121,14 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// <param name="apiResponse">Receipt data</param>
         /// <returns></returns>
         [HttpPost("{session}/receipt")]
-        public async Task<ActionResult> PostReceiptNotification([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTReceiptResponse> apiResponse)
+        public async Task<ActionResult> PostReceiptNotificationAsync([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTReceiptResponse> apiResponse)
         {
             var message = new Message
             {
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ReceiptText ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true,
             };
             
@@ -144,14 +144,14 @@ namespace Test.Angular.SignalR.Async.Controllers
         /// <param name="apiResponse">Status data</param>
         /// <returns></returns>
         [HttpPost("{session}/status")]
-        public async Task<ActionResult> PostStatusNotification([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTStatusResponse> apiResponse)
+        public async Task<ActionResult> PostStatusNotificationAsync([FromRoute] string session, [FromBody] ApiNotificationResponse<EFTStatusResponse> apiResponse)
         {
             var message = new Message
             {
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true,                
             };
                         

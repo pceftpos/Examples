@@ -48,7 +48,7 @@ namespace Test.Angular.SignalR.Async.Helpers
         /// <returns></returns>
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            timer = new Timer(DoWork, cancellationToken, TimeSpan.Zero, TimeSpan.FromSeconds(SESSION_TIMER_SECS));
+            timer = new Timer(DoWorkAsync, cancellationToken, TimeSpan.Zero, TimeSpan.FromSeconds(SESSION_TIMER_SECS));
             return Task.CompletedTask;
         }
 
@@ -56,14 +56,14 @@ namespace Test.Angular.SignalR.Async.Helpers
         /// Timer work: Check if there is any failed (expired) sessions
         /// </summary>
         /// <param name="state"></param>
-        private void DoWork(object state)
+        private async void DoWorkAsync(object state)
         {
-            var session = sessionRepository.GetOldestSession().Result;
+            var session = await sessionRepository.GetOldestSessionAsync();
 
             if (session != null && session.Expire < DateTime.Now.Ticks) 
             {
-                sessionRepository.AddFailedSession(session);
-                sessionRepository.DeleteSession(session.SessionId);
+                await sessionRepository.AddFailedSessionAsync(session);
+                await sessionRepository.DeleteSessionAsync(session.SessionId);
             }
         }
         
