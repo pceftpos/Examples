@@ -63,6 +63,9 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
             var url = new Uri(new Uri(appSettings.TokenServer), "tokens/cloudpos");
             var body = new TokenRequest()
             {
+                PosId = new Guid(appSettings.PosId),
+                PosName = appSettings.PosName,
+                PosVersion = appSettings.PosVersion,
                 Username = appSettings.PinpadUsername,
                 Password = appSettings.PinpadPassword,
                 PairCode = appSettings.PinpadPairCode
@@ -103,9 +106,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
                     ReceiptAutoPrint = "0",
                     CutReceipt = "0",
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -142,9 +143,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
                 {
                     StatusType = "0",
                     Merchant = appSettings.Merchant,
-                    Application = appSettings.Application,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Application = appSettings.Application
                 },
                 Notification = new Notification
                 {
@@ -186,9 +185,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
                 Request = new EFTSendKeyRequest()
                 {
                     Data = key.Data,
-                    Key = key.Key,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Key = key.Key
                 },
                 Notification = new Notification
                 {

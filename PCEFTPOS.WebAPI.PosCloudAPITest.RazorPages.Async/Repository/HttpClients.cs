@@ -32,6 +32,9 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Repository
 
             var body = new TokenRequest()
             {
+                PosName = appSettings.PosName,
+                PosVersion = appSettings.PosVersion,
+                PosId = new Guid(appSettings.PosId),
                 Username = appSettings.PinpadUsername,
                 Password = appSettings.PinpadPassword,
                 PairCode = appSettings.PinpadPairCode,

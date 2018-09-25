@@ -2,9 +2,12 @@
 
 namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model
 {
-    public class EFTResponse
+    /// <summary>Abstract base class for EFT client responses.</summary>
+    public abstract class EFTResponse
     {
-        public string ResponseType { get; set; }
+        /// <summary>
+        /// Paired request type
+        /// </summary>
         protected Type pairedRequestType = null;
 
         private EFTResponse()
@@ -19,9 +22,12 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model
             }
 
             this.pairedRequestType = pairedRequestType;
-            this.ResponseType = responseType;
         }
 
+        /// <summary>
+        /// Indicates the paired EFTRequest for this EFTResponse if one exists. Null otherwise.
+        /// e.g. EFTLogonResponse will have a paired EFTLogonRequest request
+        /// </summary>
         public virtual Type GetPairedRequestType() { return pairedRequestType; }
     }
 }

@@ -6,8 +6,9 @@ $(document).ready(function () {
     var appSettings = {
         tokenServer: "https://pceftpos-authenticationservice-sandbox.azurewebsites.net/v1/",
         cloudAPIUri: "https://localhost:<YOUR PORT NUMBER>/v1",
-        posName: "Test POS",
-        posVersion: "1.0",
+        posName: "<YOUR POS NAME>",
+        posVersion: "<YOUR POS VERSION>",
+        posId: "<UNIQUE UUID THAT IDENTIFIES YOUR POS>",
         merchant: "00",
         application: "00",
         pinpadUsername: "<YOUR PINPAD USERNAME>",
@@ -15,6 +16,9 @@ $(document).ready(function () {
         pinpadPairCode: "<YOUR PINPAD PAIRING CODE>"
     }
     var tokenRequest = {
+        posId: appSettings.posId,
+        posName: appSettings.posName,
+        posVersion: appSettings.posVersion,
         username: appSettings.pinpadUsername,
         password: appSettings.pinpadPassword,
         pairCode: appSettings.pinpadPairCode
@@ -26,8 +30,44 @@ $(document).ready(function () {
             amtPurchase: parseInt($("#inputAmount").val() * 100),
             merchant: appSettings.merchant,
             application: appSettings.application,
-            posName: appSettings.posName,
-            posVersion: appSettings.posVersion
+            basket: // Create a sample json 'basket' object which is sent as part of transaction request 
+            {
+                id: generateUUID(),
+                amt: 18700,
+                tax: 1760,
+                dis: 650,
+                sur: 374,
+                items: [
+                    {
+                        id: "t39kq002",
+                        sku: "k24086723",
+                        qty: 2,
+                        amt: 2145,
+                        tax: 200,
+                        dis: 50,
+                        name: "XData USB Drive"
+                    },
+                    {
+                        id: "t39kq003",
+                        sku: "s23475697",
+                        qty: 1,
+                        amt: 8910,
+                        tax: 810,
+                        dis: 50,
+                        name: "MSoft OSuite",
+                        srl: "ms7843k346j23" 
+                    },
+                    {
+                        id: "t39kq004",
+                        sku: "m47060855",
+                        qty: 5,
+                        amt: 1100,
+                        tax: 110,
+                        dis: 110,
+                        name: "A4 Notepad"
+                    }
+                ]
+            } 
         }
     };
     var token = ""; // The authentication token
@@ -94,7 +134,7 @@ $(document).ready(function () {
             data: JSON.stringify(eFTTransactionRequest),
             contentType: "application/json; charset=utf-8",
             success: function (response, textStatus, xhr) {
-                if (xhr.status == 200 && response.response.success) {
+                if (xhr.status == 200) {
                     $("#txtContent").html(response.response.responseText);
                     $("#btnClose").show();
                 }

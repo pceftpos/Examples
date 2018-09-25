@@ -42,7 +42,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Controllers
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true
             };
 
@@ -66,7 +66,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Controllers
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true
             };
 
@@ -97,7 +97,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Controllers
                 {
                     SessionId = session,
                     Text = apiResponse.Response.DisplayText ?? new string[] { "", "" },
-                    Type = apiResponse.Response.ResponseType,
+                    Type = apiResponse?.ResponseType,
                     AuthButton = apiResponse.Response.AuthoriseKeyFlag,
                     YesButton = apiResponse.Response.AcceptYesKeyFlag,
                     NoButton = apiResponse.Response.DeclineNoKeyFlag,
@@ -126,7 +126,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Controllers
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ReceiptText ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true
             };
 
@@ -149,7 +149,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Controllers
                 Response = apiResponse.Response,
                 SessionId = session,
                 Text = apiResponse?.Response?.ResponseText?.Split("\n") ?? new string[] { "", "" },
-                Type = apiResponse?.Response?.ResponseType,
+                Type = apiResponse?.ResponseType,
                 CancelButton = true
             };
 

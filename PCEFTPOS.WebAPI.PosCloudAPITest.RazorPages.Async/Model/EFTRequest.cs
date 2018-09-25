@@ -5,11 +5,6 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model
 {
     public class EFTRequest
     {
-        [Required]
-        public string PosName { get; set; }
-        [Required]
-        public string PosVersion { get; set; }
-
         protected bool isStartOfTransactionRequest = true;
         protected Type pairedResponseType = null;
 

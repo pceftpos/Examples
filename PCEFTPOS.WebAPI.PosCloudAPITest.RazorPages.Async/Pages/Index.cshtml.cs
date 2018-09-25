@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model;
 using PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Helpers;
 using PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Interface;
+using Newtonsoft.Json.Linq;
 
 namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
 {
@@ -59,6 +60,9 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
             var url = new Uri(new Uri(appSettings.TokenServer), "tokens/cloudpos");
             var body = new TokenRequest()
             {
+                PosId = new Guid(appSettings.PosId),
+                PosName = appSettings.PosName,
+                PosVersion = appSettings.PosVersion,
                 Username = appSettings.PinpadUsername,
                 Password = appSettings.PinpadPassword,
                 PairCode = appSettings.PinpadPairCode
@@ -93,6 +97,24 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
 
             var url = appSettings.Server + $"sessions/{sessionId}/transaction?async=true";
 
+            // Create a sample json 'basket' object which is sent as part of transaction request 
+            JObject basket = JObject.FromObject(
+                new
+                {
+                    id = (Guid.NewGuid()).ToString(),
+                    amt = 18700,
+                    tax = 1760,
+                    dis = 650,
+                    sur = 374,
+                    items = new dynamic[] 
+                    {
+                        new { id = "t39kq002", sku = "k24086723", qty = 2, amt = 2145, tax = 200, dis = 50, name = "XData USB Drive" },
+                        new { id = "t39kq003", sku = "s23475697", qty = 1, amt = 8910, tax = 810, name = "MSoft OSuite", srl = "ms7843k346j23" },
+                        new { id = "t39kq004", sku = "m47060855", qty = 5, amt = 1100, tax = 110, dis = 110, name = "A4 Notepad"}
+                    }
+                }
+            );
+
             var request = new ApiRequest<EFTTransactionRequest>()
             {
                 Request = new EFTTransactionRequest()
@@ -102,8 +124,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
                     AmtPurchase = (int)(actualAmount * DOLLAR_TO_CENT),
                     Merchant = appSettings.Merchant,
                     Application = appSettings.Application,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Basket = basket
                 },
                 Notification = new Notification
                 {
@@ -151,9 +172,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
                 Request = new EFTSendKeyRequest()
                 {
                     Data = key.Data,
-                    Key = key.Key,
-                    PosName = appSettings.PosName,
-                    PosVersion = appSettings.PosVersion
+                    Key = key.Key
                 },
                 Notification = new Notification
                 {

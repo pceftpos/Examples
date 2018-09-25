@@ -130,7 +130,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Helpers
                                     Response = apiResponse.Response,
                                     SessionId = failedSession.SessionId,
                                     Text = apiResponse?.Response?.ResponseText == null ? new string[] { "", "" } : apiResponse?.Response?.ResponseText.Split("\n"),
-                                    Type = apiResponse?.Response?.ResponseType,
+                                    Type = apiResponse?.ResponseType,
                                     CancelButton = true,
                                 };
 

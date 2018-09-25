@@ -27,11 +27,14 @@ Once a Transaction request is initiated from the client to the server, if it's v
 * You will need a PC-EFTPOS Cloud Username and Password
 * Follow the bank/pinpad instructions to login and get the Pairing Code
 ##### 2. Set up project settings
-Open "appsettings.json" in the project root and update the `notificationUri`, `pinpadUsername`, `pinpadPassword`, `pinpadPairCode` values under the `AppSettings` section with your project URI and the parameters from the pinpad:
+Open "appsettings.json" in the project root and update the `posName`, `posVersion`, `posId`, `notificationUri`, `pinpadUsername`, `pinpadPassword`, `pinpadPairCode` values under the `AppSettings` section with the parameters from your Pos, your project URI and the parameters from the pinpad:
 ```json
       {
 	      "AppSettings": {
-			   "notificationUri": "<YOUR POS SERVER API URI>/pceftposnotify/{{session}}/{{type}}",
+			   "posName": "<YOUR POS NAME>",
+			   "posVersion": "<YOUR POS VERSION>",
+			   "posId": "<UNIQUE UUID THAT IDENTIFIES YOUR POS>",
+			   "notificationUri": "<YOUR POS SERVER API URI>/pceftposnotify/{{sessionid}}/{{type}}",
 			   "pinpadUsername": "<YOUR PINPAD USERNAME>",
 			   "pinpadPassword": "<YOUR PINPAD PASSWORD>",
 			   "pinpadPairCode": "<YOUR PINPAD PAIRING CODE>"

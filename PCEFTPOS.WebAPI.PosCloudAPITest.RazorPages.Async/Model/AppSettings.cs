@@ -1,4 +1,6 @@
-﻿namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model
+﻿using System;
+
+namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model
 {
     /// <summary> Application settings</summary>
     public class AppSettings
@@ -14,6 +16,9 @@
 
         /// <summary> Point of sale version</summary>
         public string PosVersion { get; set; }
+
+        /// <summary> Point of sale unique UUID</summary>
+        public string PosId { get; set; }
 
         /// <summary> Notifications URI</summary>
         public string NotificationUri { get; set; }

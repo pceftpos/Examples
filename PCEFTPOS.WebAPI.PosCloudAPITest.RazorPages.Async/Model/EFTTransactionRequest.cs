@@ -71,6 +71,11 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model
         [StringLength(12)]
         public string RRN { get; set; }
 
-        public int? CVV { get; set; } // TODO: WHERE DOES THIS GO???
+        public int? CVV { get; set; }
+
+        /// <summary>
+        /// Basket data to be sent as a part of this transaction
+        /// </summary>
+        public Newtonsoft.Json.Linq.JObject Basket { get; set; }
     }
 }

@@ -26,13 +26,14 @@ After a Transaction request is initiated from the client to the REST API, the cl
 * Follow the bank/pinpad instructions to login and get the Pairing Code
 
 ##### 2. Set up project settings
-Open "transaction.js" file found in **PCEFTPOS.WebAPI.PosCloudAPITest.Basic\wwwroot\js\transaction.js** and update the `pinpadUsername`, `pinpadPassword`, `pinpadPairCode` values in the `appSettings` object with the parameters from the pinpad.
+Open "transaction.js" file found in **PCEFTPOS.WebAPI.PosCloudAPITest.Basic\wwwroot\js\transaction.js** and update the `posName`, `posVersion`, `posId`, `pinpadUsername`, `pinpadPassword`, `pinpadPairCode` values in the `appSettings` object with the parameters from your Pos and the parameters from the pinpad.
  ```
  var appSettings = {
 		.
 		.
-		.
-		.
+		posName: "<YOUR POS NAME>",
+        posVersion: "<YOUR POS VERSION>",
+        posId: "<UNIQUE UUID THAT IDENTIFIES YOUR POS>",
         pinpadUsername: "<YOUR PINPAD USERNAME>",
         pinpadPassword: "<YOUR PINPAD PASSWORD>",
         pinpadPairCode: "<YOUR PINPAD PAIRING CODE>"

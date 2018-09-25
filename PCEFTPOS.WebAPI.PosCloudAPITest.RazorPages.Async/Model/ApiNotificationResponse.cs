@@ -1,22 +1,10 @@
 ﻿namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Model
 {
-    public class ApiNotificationResponse
-    {
-        public ApiNotificationResponse() : this(null, null)
-        {
-        }
-
-        public ApiNotificationResponse(EFTResponse data, string sessionId)
-        {
-            Response = data;
-            SessionId = sessionId;
-        }
-
-        public string SessionId { get; set; }
-        public EFTResponse Response { get; set; } // TODO: should this be "Event" or something similar?
-    }
-
-    public class ApiNotificationResponse<T> where T: EFTResponse
+    /// <summary>
+    /// Notification response from cloud API
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ApiNotificationResponse<T> where T : EFTResponse
     {
         public ApiNotificationResponse() : this(null, null)
         {
@@ -28,7 +16,13 @@
             SessionId = sessionId;
         }
 
+        /// <summary> ResponseType </summary>       
+        public string ResponseType { get; set; }
+
+        /// <summary> Session id</summary>       
         public string SessionId { get; set; }
-        public T Response { get; set; } // TODO: should this be "Event" or something similar?
+
+        /// <summary> Notification recponse</summary>
+        public T Response { get; set; }
     }
 }
