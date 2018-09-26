@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, OnInit, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, ViewChildren, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormControlName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
@@ -10,7 +10,6 @@ import { GenericValidator } from '../helper/generic.validator';
 import { TransactionRequest } from '../../model/TransactionRequest';
 import { TransactionResponse } from '../../model/TransactionResponse';
 import { Observable, Subscription } from 'rxjs';
-import { ToastsManager, Toast } from 'ng2-toastr';
 import { Message } from '../../model/Message';
 import { Key } from '../../model/Key';
 import { CommonService, KeyTypes } from '../helper/common.service';
@@ -42,9 +41,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(private fb: FormBuilder,
     private homeService: HomeService,
     private commonService: CommonService,
-    private modalService: ModalService,
-    private toastr: ToastsManager, public vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+    private modalService: ModalService) {
   
     this.validationMessages = {
       txnAmount: {
@@ -85,7 +82,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.toastr.dispose();
   }
 
   ngAfterViewInit(): void {

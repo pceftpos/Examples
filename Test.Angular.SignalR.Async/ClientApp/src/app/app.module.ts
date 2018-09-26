@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
-import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { GrowlModule } from 'primeng/primeng';
@@ -23,16 +22,6 @@ import { PinpadService } from './pinpad/pinpad.service';
 import { PinpadComponent } from './pinpad/pinpad.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalService } from './modal/modal.service';
-
-// Global settings for toast messages
-export class CustomOptions extends ToastOptions {
-  animate = 'fade';
-  dismiss = 'auto';
-  newestOnTop = true;
-  enableHTML = true;
-  positionClass = 'toast-top-right';
-  showCloseButton = true;
-}
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -54,7 +43,6 @@ export function initializeApp(appConfig: AppConfig) {
     ReactiveFormsModule,
     GrowlModule,
     BrowserAnimationsModule,
-    ToastModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'settings', component: SettingsComponent },
@@ -67,7 +55,6 @@ export function initializeApp(appConfig: AppConfig) {
     SettingsService,
     PinpadService,
     ModalService,
-    { provide: ToastOptions, useClass: CustomOptions },
     AppConfig,
     { provide: APP_INITIALIZER,
       useFactory: initializeApp,

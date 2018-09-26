@@ -1,23 +1,25 @@
-<h1>Test POS</h1>
-<form class="form-horizontal" novalidate [formGroup]="transactionForm" autocomplete="off">
-  <div class="col-md-12 container" [ngClass]="{'has-error': displayMessage.txnAmount }">
+<div class="col-md-12">
+  <h1>Test POS</h1>
+</div>
 
-    <div class='col-md-1 bold-font box container'>Amount: </div>
-    <div class='col-md-2 container'>
+<form class="form-horizontal" novalidate [formGroup]="transactionForm" autocomplete="off">
+  <div class="col-md-12 row" [ngClass]="{'has-error': displayMessage.txnAmount }">
+    <div class='col-md-1 box'>Amount: </div>
+    <div class='col-md-2'>
       <input type='text' id='inputAmount' class='form-control' formControlName="txnAmount" />
       <span class="error" *ngIf="displayMessage.txnAmount">
         {{displayMessage.txnAmount}}
       </span>
     </div>
-
   </div>
-  <div class="col-md-12 container">
+
+  <div class="col-md-12 margind-top">
     <button class="btn btn-primary normal-button" [disabled]='!transactionForm.valid' (click)="onTransaction()">Transaction</button>
   </div>
-
 </form>
+
 <div class="col-md-12 row">
-  <div *ngIf="txnResponse" class="col-md-6 container">
+  <div *ngIf="txnResponse" class="col-md-6">
     <div>
       <label class="box one-line">Response Code: </label><label class="value one-line">{{txnResponse.responseCode}}</label>
     </div>
@@ -82,31 +84,27 @@
   </div>
 </div>
 
-  <!--<div class="col-md-12 container">
-    <button class="btn btn-primary normal-button" (click)="openModal('notification-modal')">Open Modal</button>
-  </div>-->
-
-  <modal id="notification-modal">
-    <div *ngIf="message" class="modal">
-      <div class="modal-body">
-        <h3 class="text-center receipt-font">
-          {{message.text[0]}}
-        </h3>
-        <h3 class="text-center receipt-font">
-          {{message.text[1]}}
-        </h3>
-        <input *ngIf ="message.authButton" class="form-control" type="text" [(ngModel)]="authInput"/>
-        <div class="col-md-12 row modal-button-div">
-          <!--2d button-->
-          <button *ngIf="message.noButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '2');">No</button>
-          <button *ngIf="message.cancelButton && !message.closeButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '0');">Cancel</button>
-          <button *ngIf="message.okButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '0');">Ok</button>
-          <button *ngIf="message.closeButton" class="btn btn-primary modal-button pull-right" (click)="onModalButton('notification-modal', '-1');">Close</button>
-          <!--1st button-->
-          <button *ngIf="message.authButton" class="btn modal-button btn-primary modal-marging-right pull-right" (click)="onModalButton('notification-modal', '3');">Auth</button>
-          <button *ngIf="message.yesButton" class="btn btn-primary modal-button modal-marging-right pull-right" (click)="onModalButton('notification-modal', '1');">Yes</button>
-        </div>
+<modal id="notification-modal">
+  <div *ngIf="message" class="modal">
+    <div class="modal-body">
+      <h3 class="text-center receipt-font">
+        {{message.text[0]}}
+      </h3>
+      <h3 class="text-center receipt-font">
+        {{message.text[1]}}
+      </h3>
+      <input *ngIf="message.authButton" class="form-control" type="text" [(ngModel)]="authInput" />
+      <div class="row modal-button-div">
+        <!--1st button-->
+        <button *ngIf="message.authButton" class="btn modal-button btn-primary modal-marging-right" (click)="onModalButton('notification-modal', '3');">Auth</button>
+        <button *ngIf="message.yesButton" class="btn btn-primary modal-button modal-marging-right" (click)="onModalButton('notification-modal', '1');">Yes</button>
+        <!--2d button-->
+        <button *ngIf="message.noButton" class="btn btn-primary modal-button" (click)="onModalButton('notification-modal', '2');">No</button>
+        <button *ngIf="message.cancelButton && !message.closeButton" class="btn btn-primary modal-button" (click)="onModalButton('notification-modal', '0');">Cancel</button>
+        <button *ngIf="message.okButton" class="btn btn-primary modal-button" (click)="onModalButton('notification-modal', '0');">Ok</button>
+        <button *ngIf="message.closeButton" class="btn btn-primary modal-button" (click)="onModalButton('notification-modal', '-1');">Close</button>
       </div>
     </div>
-    <div class="modal-background"></div>
-  </modal>
+  </div>
+  <div class="modal-background"></div>
+</modal>
