@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, OnInit, AfterViewInit, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, ViewChildren, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormControlName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
@@ -10,7 +10,6 @@ import { GenericValidator } from '../helper/generic.validator';
 import { TransactionRequest } from '../../model/TransactionRequest';
 import { TransactionResponse } from '../../model/TransactionResponse';
 import { Observable, Subscription } from 'rxjs';
-import { ToastsManager, Toast } from 'ng2-toastr';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Message } from '../../model/Message';
 import { Key } from '../../model/Key';
@@ -40,10 +39,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(private fb: FormBuilder,
     private homeService: HomeService,
     private commonService: CommonService,
-    private modalService: ModalService,
-    private toastr: ToastsManager, public vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
-  
+    private modalService: ModalService) {  
     this.validationMessages = {
       txnAmount: {
         required: 'Transaction amount is required',
@@ -74,7 +70,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.toastr.dispose();
     if (this.timer) {
       this.timer.unsubscribe();
     }
@@ -217,17 +212,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.message = message;
       
       this.openModal("notification-modal");
-    }
-  }
-
-  showMessage(message: Message) {
-    if (message && message.text) {
-      var str = message.text[0] = `\n`;
-      for (var i = 1; i < message.text.length; i++) {
-        str = message.text[i] + `\n`;
-      }
-
-      this.toastr.success(str, message.type);
     }
   }
 

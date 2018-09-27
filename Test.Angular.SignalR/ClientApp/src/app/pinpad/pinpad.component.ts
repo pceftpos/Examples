@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { PinpadService } from './pinpad.service';
 import { StatusResponse } from '../../model/StatusResponse';
 import { LogonResponse } from '../../model/LogonResponse';
@@ -6,7 +6,6 @@ import { Key } from '../../model/Key';
 
 import { Observable, Subscription } from 'rxjs';
 import { Message } from '../../model/Message';
-import { ToastsManager, Toast } from 'ng2-toastr';
 import { CommonService, KeyTypes } from '../helper/common.service';
 import { AppConfig } from '../helper/appConfig';
 import { ModalService } from '../modal/modal.service';
@@ -29,9 +28,7 @@ export class PinpadComponent {
 
   constructor(private pinpadService: PinpadService,
     private commonService: CommonService,
-    private modalService: ModalService,
-    private toastr: ToastsManager, public vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+    private modalService: ModalService) {
   }
 
   ngOnInit() {
@@ -51,7 +48,6 @@ export class PinpadComponent {
   }
 
   ngOnDestroy() {
-    this.toastr.dispose();
   }
   
   onStatus() {
@@ -172,16 +168,4 @@ export class PinpadComponent {
       this.openModal("notification-modal");
     }
   }
-
-  //showMessage(message: Message) {    
-  //  if (message && message.text) {
-  //    var str = message.text[0] =`\n`;
-  //    for (var i = 1; i < message.text.length; i++) {
-  //      str = message.text[i] + `\n`;
-  //    }
-
-  //    this.toastr.success(str, message.type);
-  //  }
-  //}
-
 }

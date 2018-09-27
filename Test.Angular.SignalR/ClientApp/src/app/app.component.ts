@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HubConnection } from '@aspnet/signalr';
 import { Message } from 'primeng/api';
 
-//const signalR = require("@aspnet/signalr");
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',

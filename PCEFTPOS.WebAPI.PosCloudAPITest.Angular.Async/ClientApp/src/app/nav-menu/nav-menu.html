@@ -1,33 +1,23 @@
-<div class='main-nav'>
-    <div class='navbar navbar-inverse'>
-        <div class='navbar-header'>
-            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-            </button>
-            <a class='navbar-brand' [routerLink]='["/"]'>Async Angular POS</a>
-        </div>
-        <div class='clearfix'></div>
-        <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-          <ul class='nav navbar-nav'>
-            <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-              <a [routerLink]='["/"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-home'></span> Home
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/pinpad"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-phone'></span> Pinpad
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/settings"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-cog'></span> Settings
-              </a>
-            </li>
-          </ul>
-        </div>
-    </div>
-</div>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark flex-column">
+  <div class='navbar-header'>
+    <a class='navbar-brand' [routerLink]='["/"]'>Test Angular POS</a>
+  </div>
+  <ul class='nav flex-column col-md-12'>
+    <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+      <a class="nav-link" [routerLink]='["/"]' (click)='collapse()'>
+        Home
+      </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]='["link-active"]'>
+      <a class="nav-link" [routerLink]='["/pinpad"]' (click)='collapse()'>
+        Pinpad
+      </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]='["link-active"]'>
+      <a class="nav-link" [routerLink]='["/settings"]' (click)='collapse()'>
+        Settings
+      </a>
+    </li>
+  </ul>
+</nav>
+

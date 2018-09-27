@@ -25,3 +25,7 @@
     margin-top: 15px;
   }
 }
+
+.full-height {
+  min-height: 100vh;
+}

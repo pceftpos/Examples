@@ -1,15 +1,10 @@
 @import "../modal/modal.css";
 
-.container {
-  padding: 0 0 0 0;
-  margin-right: 0;
-  margin-top: 10px;
-}
-
 .box {
   display: flex;
   align-items: center;
   height: 30px;
+  font-weight: bold
 }
 
 .value {
@@ -32,4 +27,8 @@
 
 .receipt-font {
   font-family: "Courier New", Courier, monospace;
+}
+
+.margind-top {
+  margin-top: 5px;
 }
