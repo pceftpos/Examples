@@ -12,9 +12,22 @@
       </span>
     </div>
   </div>
-
+  <div class="col-md-12 margind-top row">
+    <div class='box col-md-1'>Refund: </div>    
+    <div class='col-md-2'>
+      <input type="checkbox"
+             name="questionAnswerState"
+             [(ngModel)]="isRefund"
+             (change)="isRefundChanged()" />
+      <input type='text' id='inputRefundRef' class='form-control' formControlName="txnRefundRef" placeholder="Input Refund Reference" />
+    </div>
+  </div>  
   <div class="col-md-12 margind-top">
-    <button class="btn btn-primary normal-button" [disabled]='!transactionForm.valid' (click)="onTransaction()">Transaction</button>
+    <div class='box'>Select Payment Method </div>
+  </div>
+  <div class="col-md-12 margind-top">
+    <button class="btn btn-primary normal-button" [disabled]='!transactionForm.valid' (click)="onTransaction('00')">EFTPOS</button>
+    <button class="btn btn-primary normal-button" [disabled]='!transactionForm.valid' (click)="onTransaction('67')">Oxipay</button>
   </div>
 </form>
 
@@ -76,6 +89,9 @@
     </div>
     <div>
       <label class="box one-line">Track 2: </label><label class="value one-line">{{txnResponse.track2}}</label>
+    </div>
+    <div *ngIf ="txnResponse.purchaseAnalysisData">
+      <label *ngIf="txnResponse.purchaseAnalysisData.REF" class="box one-line">Purchase Data (REF): </label><label class="value one-line">{{txnResponse.purchaseAnalysisData.REF}}</label>
     </div>
   </div>
   <div *ngIf="receipt" class="col-md-6">

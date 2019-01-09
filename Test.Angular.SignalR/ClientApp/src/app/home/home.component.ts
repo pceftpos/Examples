@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   receipt: string;
   message: Message;
   authInput: string;
+  isRefund: boolean;
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
   displayMessage: { [key: string]: string } = {};
@@ -45,7 +46,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       txnAmount: {
         required: 'Transaction amount is required',
         pattern: 'Use only valid numbers',        
-      },
+      }
     };
     this.genericValidator = new GenericValidator(this.validationMessages);
   }
@@ -54,8 +55,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.receipt = ``;
     this.authInput = "";
     this.message = null;
+    this.isRefund = false;
     this.transactionForm = this.fb.group({
       txnAmount: ['', [Validators.required, Validators.pattern(/^\d+.\d{2}$/)]],
+      txnRefundRef: ['']
     });
     this.assignForm();
 
@@ -74,7 +77,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
 
     this.transactionForm.patchValue({
-      txnAmount: AppConfig.settings.application.defaultAmount
+      txnAmount: AppConfig.settings.application.defaultAmount,
+      txnRefundRef: "",
     });
   }
 
@@ -92,20 +96,40 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
     
-  onTransaction() {
+  onTransaction(type: string) {
     this.transaction = null;
     this.txnResponse = null;
     this.receipt = ``;
     if (this.transactionForm.valid) {
       // Copy the form values over the contact object values
       var str = "";
+      var txnRef = "";
       let txn = Object.assign({}, this.transactionForm.value);
       str = txn.txnAmount;
+      txnRef = txn.txnRefundRef;
 
       var amount = parseFloat(str);
-
+      
       if (amount > 0) {
-        this.homeService.makeTransaction(amount)
+        if (txnRef.length > 0 || this.isRefund) {
+          //Refund
+          this.transaction = <TransactionRequest>{
+            Amount: amount,
+            Merchant: type,
+            RefundReference: txnRef,
+            TxnType: "R"
+          }
+        }
+        else {
+          //Purchace
+          this.transaction = <TransactionRequest>{
+            Amount: amount,
+            Merchant: type,
+            TxnType: "P"
+          }
+        }
+
+        this.homeService.makeTransaction(this.transaction)
           .subscribe(
           response => {            
             this.assignTransactionResponse(response);
@@ -117,6 +141,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
           );
       }
     }
+  }
+
+  isRefundChanged() {
+    this.isRefund = !this.isRefund;
   }
 
   assignReceipt(message: Message) {

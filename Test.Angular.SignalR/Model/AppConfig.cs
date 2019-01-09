@@ -27,4 +27,9 @@
         /// <summary> Defaul transaction amount</summary>
         public string DefaultAmount { get; set; }
     }
+
+    public enum ExtensionType
+    {
+        Oxipay = 67
+    }
 }

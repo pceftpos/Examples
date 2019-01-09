@@ -1,3 +1,6 @@
 export class TransactionRequest {
-  Amount: number
+  Amount: number;
+  Merchant: string;
+  TxnType: string;
+  RefundReference: string;
 }

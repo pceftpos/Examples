@@ -83,42 +83,77 @@ Build the project, make sure you use the right NuGet packages and other Dependen
 __Please note, if you want to get notifications from the REST API you should deploy your POS server. The notifications will not be shown at the Client for localhost__
 
 Once the application is running you will see the following page with Home, Pinpad and Settings tabs.<br/>
-![POS Start](Docs/pos_txn.png)
+![POS Start](Docs/pos_home.png)
 
-##### Check Status
+#### Check Status
 First of all go to the Pinpad tab and click the "Status" button to check it. The notification shows the completed operation:<br/>
 ![Status](Docs/notification_status.png)
 
 The following picture shows the successful status<br/>
 ![POS Pinpad Status](Docs/pos_pinpad_status.png)
 
-##### Do Logon
+#### Do Logon
 If the status is "LOGON REQUIRED"<br/>
 ![POS Pinpad Status Logon required](Docs/pos_logon_required.png)
 
-Click the "Logon" button to finish the pinpad set up. You will see the following sequence of notifications showing using the SignalR library.
+Click the "Logon" button to finish the pinpad set up. You will see the following sequence of notifications showing using the SignalR library.<br/>
 __Notification sequence may vary depending on pinpad.__<br/>
 ![Logon Init](Docs/notification_logon.png),   ![Logon Approve](Docs/notification_approve.png),   ![Logon Done](Docs/notification_logon_done.png)
 
 Close the last notification. The final POS view should appear as follows when the logon is complete:<br/>
 ![POS Pinpad Logon done](Docs/pos_logon_done.png)
 
-##### Do transaction
-To create a transaction, just go to the Home tab and click the Transaction button to create a $1.00 transaction. You will see the following sequence of notifications shown using SignalR library:
+#### Do transaction
+To create a transaction, just go to the Home tab and click the Transaction button to create a $1.00 EFTPOS transaction or $20.00 Oxipay transaction (sum may vary depending on minimum Oxipay transaction setting).<br/> 
+
+##### EFTPOS Transaction
+You will see the following sequence of notifications shown using SignalR library for __Eftpos__ payment: <br/>
 __Notification sequence may vary depending on pinpad__<br/>
 ![Txn Swipe Card](Docs/notification_swipe_card.png), ![Txn Select Account](Docs/notification_enter_acc.png), ![Txn Enter pin](Docs/notification_enter_pin.png), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)
 
 Once the transaction is finished, close the last notification. The POS Client will show transaction details and the receipt:<br/>
 ![POS Txn](Docs/pos_txn_done.png)
 
-##### Decline transaction
+##### Oxipay Transaction
+To make the Oxipay transaction, you need a 6-digit Oxipay barcode, contact Oxipay for more information. <br/>
+
+You will see the following sequence of notifications shown using SignalR library for __Oxipay__ payment: <br/>
+__Notification sequence may vary depending on pinpad__<br/>
+![Oxipay_payment](Docs/oxipay_payment.PNG), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)
+
+Once the transaction is finished, close the last notification. The POS Client will show transaction details.<br/>
+![Oxipay Txn](Docs/oxipay_txn_done.png)
+
+#### Make a refund
+To make a refund input refund Amount and select a Refund checkbox on Home page: <br/>
+![Refund EFTPOS](Docs/refund_eftpos.PNG)<br/>
+
+##### EFTPOS Refund
+Click on EFTPOS button to process. You will see the following sequence of notifications showing using the SignalR library. <br/>
+__Notification sequence may vary depending on pinpad.__<br/>
+![Txn Swipe Card](Docs/notification_swipe_card.png), ![Txn Select Account](Docs/notification_enter_acc.png), ![Txn Enter pin](Docs/notification_enter_pin.png), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
+
+##### Oxipay Refund
+To make an Oxipay refund you need a REF code of Oxipay transaction: <br/>
+![Oxipay REF](Docs/oxipay_txn_done_REF.png) <br/>
+
+Once the Amount is set, Refund checkbox selected and Refund Reference input:<br/>
+![Oxipay Refund](Docs/refund_oxipay.png) <br/>
+
+Process with click "Oxipay" button.You will see the following sequence of notifications showing using the SignalR library. <br/>
+__Notification sequence may vary depending on pinpad.__<br/>
+![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
+
+Once the transaction is finished, close the last notification. The POS Client will show transaction details.
+
+#### Decline transaction
 You can decline a transaction by clicking the "Cancel" button on one of the Notifications (Swipe Card, Enter Account, Enter Pin) before the transaction is processed. When you cancel a transaction you will see this notification: <br/>
 ![Txn Cancelled](Docs/notification_txn_cancelled.png)
 
 and the POS Client will show the transaction data (Receipt may be shown or not. It depends on the pinpad settings)<br/>
 ![POS Txn Cancelled](Docs/pos_txn_cancelled.png)
 
-##### Settings
+#### Settings
 On the Settings tab you can update the POS Server and default transaction amount used on the Home page. This is stored in **ClientApp\src\assets\config.json**<br/>
 ![POS Settings](Docs/pos_settings.png)
 

@@ -26,5 +26,5 @@ export class TransactionResponse {
   catid: string;
   caid: string;
   stan: number;
-  purchaseAnalysisData: string;
+  purchaseAnalysisData: object;
 }

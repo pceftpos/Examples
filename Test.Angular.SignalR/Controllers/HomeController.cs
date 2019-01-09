@@ -188,34 +188,70 @@ namespace Test.Angular.SignalR.Controllers
         /// <summary>
         /// Make transaction
         /// </summary>
-        /// <param name="amount">Amount of transaction</param>
+        /// <param name="transaction"></param>
         /// <returns>Return transaction response</returns>
         [HttpPost("transaction")]
-        public async Task<ActionResult<EFTTransactionResponse>> PostTransactionAsync([FromBody] float amount)
+        public async Task<ActionResult<EFTTransactionResponse>> PostTransactionAsync([FromBody] TransactionRequest transaction)
         {
+            if (transaction == null || transaction.Amount <= 0 || string.IsNullOrEmpty(transaction.TxnType))
+            {
+                return BadRequest();
+            }
+
             var sessionId = Guid.NewGuid();
 
             var url = appSettings.Server + $"sessions/{sessionId}/transaction";
 
-            var request = new ApiRequest<EFTTransactionRequest>()
+            var request = new ApiRequest<EFTTransactionRequest>();
+
+            request.Request = new EFTTransactionRequest()
             {
-                Request = new EFTTransactionRequest()
-                {
-                    TxnType = "P",
-                    TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
-                    AmtPurchase = (int)(amount * DOLLAR_TO_CENT),
-                    Merchant = appSettings.Merchant,
-                    Application = appSettings.Application
-                },
-                Notification = new Notification
-                {
-                    Uri = appSettings.NotificationUri
-                }
+                TxnType = string.IsNullOrEmpty(transaction.TxnType) ? "P" : transaction.TxnType,
+                ReceiptAutoPrint = "0",
+                TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
+                AmtPurchase = (int)(transaction.Amount * DOLLAR_TO_CENT),
+                Merchant = string.IsNullOrEmpty(transaction.Merchant) ? appSettings.Merchant : transaction.Merchant,
+                Application = "02"
+
             };
+
+            request.Notification = new Notification
+            {
+                Uri = appSettings.NotificationUri
+            };
+
+            // if refund
+            if (string.Equals(transaction.TxnType, "R"))
+            {
+                int.TryParse(transaction.Merchant, out int merchant);
+
+                switch (merchant)
+                {
+                    case (int)ExtensionType.Oxipay:
+                        if (!string.IsNullOrEmpty(transaction.RefundReference))
+                        {
+                            dynamic purchaseData = new Newtonsoft.Json.Linq.JObject();
+                            purchaseData.REF = transaction.RefundReference;
+                            request.Request.PurchaseAnalysisData = purchaseData;
+                        }
+                        else
+                        {
+                            return BadRequest();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             if (string.IsNullOrEmpty(token))
             {
                 token = (await GetTokenAsync())?.Token;
+            }
+
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized();
             }
 
             apiClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));

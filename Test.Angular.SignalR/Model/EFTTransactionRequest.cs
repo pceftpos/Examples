@@ -3,6 +3,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Test.Angular.SignalR.Model
 {
+    public class TransactionRequest
+    {
+        /// <summary>
+        /// The purchase amount for the transaction.
+        /// Defaults to 0
+        /// </summary>
+        [Range(0, 999999999)]
+        public float Amount { get; set; }
+
+        /// <summary>Indicates where the request is to be sent to. Defaults to "00" (EFTPOS)</summary>
+        [StringLength(2, MinimumLength = 2)]
+        public string Merchant { get; set; }
+
+        [StringLength(1)]
+        public string TxnType { get; set; }
+
+        // For Oxipay reference number
+        public string RefundReference { get; set; }
+    }
     /// <summary>A PC-EFTPOS transaction request object.</summary>
 	public class EFTTransactionRequest : EFTRequest
     {
@@ -112,7 +131,7 @@ namespace Test.Angular.SignalR.Model
 
         /// <summary>CVV. Defaults to 0</summary>
         public int? CVV { get; set; }
-
+        
         /// <summary>
         /// Basket data to be sent as a part of this transaction
         /// </summary>
