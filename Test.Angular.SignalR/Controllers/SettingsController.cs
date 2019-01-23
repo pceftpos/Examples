@@ -33,12 +33,12 @@ namespace Test.Angular.SignalR.Controllers
         [HttpPost]
         public ActionResult PostSettings([FromBody] AppConfig config)
         {
-            if (config == null || config.ApiServer == null || config.Application == null)
+            if (config == null || config.apiServer == null || config.application == null)
             {
                 return BadRequest();
             }
 
-            var filePath = Path.Combine(Environment.CurrentDirectory, appSettings.ConfigFile);
+            var filePath = Environment.CurrentDirectory + appSettings.ConfigFile;
 
             string output = JsonConvert.SerializeObject(config, Formatting.Indented);
             using (StreamWriter file = new StreamWriter(filePath))

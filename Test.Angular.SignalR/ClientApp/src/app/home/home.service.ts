@@ -9,11 +9,6 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })//, 'Access-Control-Allow-Origin':'*' })  
 };
 
-export enum Application {
-  Eftpos = "00",
-  Oxipay = "67"
-}
-
 @Injectable()
 export class HomeService {
   protected apiServer = AppConfig.settings.apiServer.uri + "home/";

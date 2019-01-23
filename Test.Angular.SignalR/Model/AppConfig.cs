@@ -4,10 +4,10 @@
     public class AppConfig
     {
         /// <summary> API server settings</summary>
-        public ApiServer ApiServer { get; set; }
+        public ApiServer apiServer { get; set; }
 
         /// <summary> Application settings</summary>
-        public Application Application { get; set; }
+        public Application application { get; set; }
     }
 
     /// <summary>
@@ -16,7 +16,7 @@
     public class ApiServer
     {
         /// <summary> Server URI</summary>
-        public string Uri { get; set; }
+        public string uri { get; set; }
     }
 
     /// <summary>
@@ -25,11 +25,12 @@
     public class Application
     {
         /// <summary> Defaul transaction amount</summary>
-        public string DefaultAmount { get; set; }
+        public string defaultAmount { get; set; }
     }
 
     public enum ExtensionType
     {
+        AfterPay = 65,
         Oxipay = 67
     }
 }

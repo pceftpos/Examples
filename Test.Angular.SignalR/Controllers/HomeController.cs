@@ -204,6 +204,11 @@ namespace Test.Angular.SignalR.Controllers
 
             var request = new ApiRequest<EFTTransactionRequest>();
 
+            var application = "00";
+            if (!string.IsNullOrEmpty(transaction.Merchant) && transaction.Merchant != "00")
+            {
+                application = "02";
+            }
             request.Request = new EFTTransactionRequest()
             {
                 TxnType = string.IsNullOrEmpty(transaction.TxnType) ? "P" : transaction.TxnType,
@@ -211,8 +216,7 @@ namespace Test.Angular.SignalR.Controllers
                 TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
                 AmtPurchase = (int)(transaction.Amount * DOLLAR_TO_CENT),
                 Merchant = string.IsNullOrEmpty(transaction.Merchant) ? appSettings.Merchant : transaction.Merchant,
-                Application = "02"
-
+                Application = application
             };
 
             request.Notification = new Notification
@@ -227,6 +231,18 @@ namespace Test.Angular.SignalR.Controllers
 
                 switch (merchant)
                 {
+                    case (int)ExtensionType.AfterPay:
+                        if (!string.IsNullOrEmpty(transaction.RefundReference))
+                        {
+                            dynamic purchaseData = new Newtonsoft.Json.Linq.JObject();
+                            purchaseData.REF = transaction.RefundReference;
+                            request.Request.PurchaseAnalysisData = purchaseData;
+                        }
+                        else
+                        {
+                            return BadRequest();
+                        }
+                        break;
                     case (int)ExtensionType.Oxipay:
                         if (!string.IsNullOrEmpty(transaction.RefundReference))
                         {

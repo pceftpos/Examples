@@ -114,6 +114,16 @@ __Notification sequence may vary depending on pinpad__<br/>
 Once the transaction is finished, close the last notification. The POS Client will show transaction details and the receipt:<br/>
 ![POS Txn](Docs/pos_txn_done.png)
 
+##### AfterPay Transaction
+To make the AfterPay transaction, you need a 8-digit AfterPay barcode, contact AfterPay for more information. <br/>
+
+You will see the following sequence of notifications shown using SignalR library for __AfterPay__ payment: <br/>
+__Notification sequence may vary depending on pinpad__<br/>
+![AfterPay Payment](Docs/afterpay_payment.png), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)
+
+Once the transaction is finished, close the last notification. The POS Client will show transaction details.<br/>
+![AfterPay Txn](Docs/afterpay_txn_done.png)
+
 ##### Oxipay Transaction
 To make the Oxipay transaction, you need a 6-digit Oxipay barcode, contact Oxipay for more information. <br/>
 
@@ -133,6 +143,19 @@ Click on EFTPOS button to process. You will see the following sequence of notifi
 __Notification sequence may vary depending on pinpad.__<br/>
 ![Txn Swipe Card](Docs/notification_swipe_card.png), ![Txn Select Account](Docs/notification_enter_acc.png), ![Txn Enter pin](Docs/notification_enter_pin.png), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
 
+##### AfterPay Refund
+To make an AfterPay refund you need a "AfterPay Order ID" code of AfterPay transaction: <br/>
+![AfterPay Order ID](Docs/afterpay_txn_done_OrderID.png) <br/>
+
+Once the Amount is set, Refund checkbox selected and Refund Reference input:<br/>
+![AfterPay Refund](Docs/refund_afterpay.png) <br/>
+
+Process with click "AfterPay" button.You will see the following sequence of notifications showing using the SignalR library. <br/>
+__Notification sequence may vary depending on pinpad.__<br/>
+![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
+
+Once the refund is finished, close the last notification. The POS Client will show refund details.
+
 ##### Oxipay Refund
 To make an Oxipay refund you need a REF code of Oxipay transaction: <br/>
 ![Oxipay REF](Docs/oxipay_txn_done_REF.png) <br/>
@@ -144,7 +167,7 @@ Process with click "Oxipay" button.You will see the following sequence of notifi
 __Notification sequence may vary depending on pinpad.__<br/>
 ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
 
-Once the transaction is finished, close the last notification. The POS Client will show transaction details.
+Once the refund is finished, close the last notification. The POS Client will show refund details.
 
 #### Decline transaction
 You can decline a transaction by clicking the "Cancel" button on one of the Notifications (Swipe Card, Enter Account, Enter Pin) before the transaction is processed. When you cancel a transaction you will see this notification: <br/>
