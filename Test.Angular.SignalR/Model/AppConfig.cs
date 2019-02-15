@@ -28,9 +28,11 @@
         public string defaultAmount { get; set; }
     }
 
+    // TODO: delete if not in use
     public enum ExtensionType
     {
         AfterPay = 65,
-        Oxipay = 67
+        Oxipay = 67,
+        ZipMoney = 89
     }
 }

@@ -121,7 +121,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           }
         }
         else {
-          //Purchace
+          //Purchase
           this.transaction = <TransactionRequest>{
             Amount: amount,
             Merchant: type,

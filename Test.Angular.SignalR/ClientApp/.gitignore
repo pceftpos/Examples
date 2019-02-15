@@ -41,6 +41,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-# User Files
-package-lock.json

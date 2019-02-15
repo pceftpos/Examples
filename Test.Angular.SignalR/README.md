@@ -134,6 +134,16 @@ __Notification sequence may vary depending on pinpad__<br/>
 Once the transaction is finished, close the last notification. The POS Client will show transaction details.<br/>
 ![Oxipay Txn](Docs/oxipay_txn_done.png)
 
+##### ZipMoney Transaction
+To make the ZipMoney transaction, you need a 8-digit ZipMoney code, contact ZipMoney for more information. <br/>
+
+You will see the following sequence of notifications shown using SignalR library for __ZipMoney__ payment: <br/>
+__Notification sequence may vary depending on pinpad__<br/>
+![ZipMoney Payment](Docs/zipmoney_payment.png), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)
+
+Once the transaction is finished, close the last notification. The POS Client will show transaction details.<br/>
+![ZipMoney Txn](Docs/zipmoney_txn_done.png)
+
 #### Make a refund
 To make a refund input refund Amount and select a Refund checkbox on Home page: <br/>
 ![Refund EFTPOS](Docs/refund_eftpos.PNG)<br/>
@@ -164,6 +174,19 @@ Once the Amount is set, Refund checkbox selected and Refund Reference input:<br/
 ![Oxipay Refund](Docs/refund_oxipay.png) <br/>
 
 Process with click "Oxipay" button.You will see the following sequence of notifications showing using the SignalR library. <br/>
+__Notification sequence may vary depending on pinpad.__<br/>
+![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
+
+Once the refund is finished, close the last notification. The POS Client will show refund details.
+
+##### ZipMoney Refund
+To make an ZipMoney refund you need a REF code of ZipMoney transaction: <br/>
+![ZipMoney REF](Docs/zipmoney_txn_done_REF.png) <br/>
+
+Once the Amount is set, Refund checkbox selected and Refund Reference input:<br/>
+![ZipMoney Refund](Docs/refund_zipmoney.png) <br/>
+
+Process with click "ZipMoney" button.You will see the following sequence of notifications showing using the SignalR library. <br/>
 __Notification sequence may vary depending on pinpad.__<br/>
 ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
 

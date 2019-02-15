@@ -229,35 +229,19 @@ namespace Test.Angular.SignalR.Controllers
             {
                 int.TryParse(transaction.Merchant, out int merchant);
 
-                switch (merchant)
+                if (merchant > 0) // Means the refund is going through TPP extension
                 {
-                    case (int)ExtensionType.AfterPay:
-                        if (!string.IsNullOrEmpty(transaction.RefundReference))
-                        {
-                            dynamic purchaseData = new Newtonsoft.Json.Linq.JObject();
-                            purchaseData.REF = transaction.RefundReference;
-                            request.Request.PurchaseAnalysisData = purchaseData;
-                        }
-                        else
-                        {
-                            return BadRequest();
-                        }
-                        break;
-                    case (int)ExtensionType.Oxipay:
-                        if (!string.IsNullOrEmpty(transaction.RefundReference))
-                        {
-                            dynamic purchaseData = new Newtonsoft.Json.Linq.JObject();
-                            purchaseData.REF = transaction.RefundReference;
-                            request.Request.PurchaseAnalysisData = purchaseData;
-                        }
-                        else
-                        {
-                            return BadRequest();
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                    if (!string.IsNullOrEmpty(transaction.RefundReference))
+                    {
+                        dynamic purchaseData = new Newtonsoft.Json.Linq.JObject();
+                        purchaseData.REF = transaction.RefundReference;
+                        request.Request.PurchaseAnalysisData = purchaseData;
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }                
             }
 
             if (string.IsNullOrEmpty(token))
