@@ -124,6 +124,16 @@ __Notification sequence may vary depending on pinpad__<br/>
 Once the transaction is finished, close the last notification. The POS Client will show transaction details.<br/>
 ![AfterPay Txn](Docs/afterpay_txn_done.png)
 
+##### Alipay Transaction
+To make the Alipay transaction, you need a 18-digit Alipay barcode, contact Alipay for more information. <br/>
+
+You will see the following sequence of notifications shown using SignalR library for __Alipay__ payment: <br/>
+__Notification sequence may vary depending on pinpad__<br/>
+![Alipay Payment](Docs/afterpay_payment.png), ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)
+
+Once the transaction is finished, close the last notification. The POS Client will show transaction details.<br/>
+![Alipay Txn](Docs/alipay_txn_done.png)
+
 ##### Oxipay Transaction
 To make the Oxipay transaction, you need a 6-digit Oxipay barcode, contact Oxipay for more information. <br/>
 
@@ -160,9 +170,22 @@ To make an AfterPay refund you need a "AfterPay Order ID" code of AfterPay trans
 Once the Amount is set, Refund checkbox selected and Refund Reference input:<br/>
 ![AfterPay Refund](Docs/refund_afterpay.png) <br/>
 
-Process with click "AfterPay" button.You will see the following sequence of notifications showing using the SignalR library. <br/>
+Process with click "AfterPay" button. You will see the following sequence of notifications showing using the SignalR library. <br/>
 __Notification sequence may vary depending on pinpad.__<br/>
 ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
+
+Once the refund is finished, close the last notification. The POS Client will show refund details.
+
+##### Alipay Refund
+To make an Alipay refund you need a "Alipay Trade Number" and "Retrieval Reference" codes of Alipay transaction: <br/>
+![Alipay Trade Number](Docs/alipay_txn_done_REF.png) <br/>
+
+Once the Amount is set, Refund checkbox selected and Alipay Trade Number is inputed:<br/>
+![Alipay Refund](Docs/refund_alipay.png) <br/>
+
+Process with click "Alipay" button. You will see the following sequence of notifications showing using the SignalR library. Input the Retrieval Reference once the pinpad asks for it.<br/>
+__Notification sequence may vary depending on pinpad.__<br/>
+![Alipay Input Retrieval Reference](Docs/notification_alipay_refund.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
 
 Once the refund is finished, close the last notification. The POS Client will show refund details.
 
@@ -173,7 +196,7 @@ To make an Oxipay refund you need a REF code of Oxipay transaction: <br/>
 Once the Amount is set, Refund checkbox selected and Refund Reference input:<br/>
 ![Oxipay Refund](Docs/refund_oxipay.png) <br/>
 
-Process with click "Oxipay" button.You will see the following sequence of notifications showing using the SignalR library. <br/>
+Process with click "Oxipay" button. You will see the following sequence of notifications showing using the SignalR library. <br/>
 __Notification sequence may vary depending on pinpad.__<br/>
 ![Txn Process](Docs/notification_wait.png), ![Txn Approved](Docs/notification_approve.png), ![Txn Finish](Docs/notification_finish.png)<br/>
 
