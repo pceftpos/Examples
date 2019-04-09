@@ -121,7 +121,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.RazorPages.Async.Pages
                 {
                     TxnType = "P",
                     TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
-                    AmtPurchase = (int)(actualAmount * DOLLAR_TO_CENT),
+                    AmtPurchase = Convert.ToInt32(actualAmount * DOLLAR_TO_CENT),
                     Merchant = appSettings.Merchant,
                     Application = appSettings.Application,
                     Basket = basket
