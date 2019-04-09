@@ -188,7 +188,7 @@ namespace PCEFTPOS.WebAPI.PosCloudAPITest.Angular.Controllers
                 {
                     TxnType = "P",
                     TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
-                    AmtPurchase = (int)(amount * DOLLAR_TO_CENT),
+                    AmtPurchase = Convert.ToInt32(amount * DOLLAR_TO_CENT),
                     Merchant = appSettings.Merchant,
                     Application = appSettings.Application
                 },

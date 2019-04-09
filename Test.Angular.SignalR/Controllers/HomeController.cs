@@ -214,7 +214,7 @@ namespace Test.Angular.SignalR.Controllers
                 TxnType = string.IsNullOrEmpty(transaction.TxnType) ? "P" : transaction.TxnType,
                 ReceiptAutoPrint = "0",
                 TxnRef = RandomStr.RandomString(TRX_RND_STR_LENGTH),
-                AmtPurchase = (int)(transaction.Amount * DOLLAR_TO_CENT),
+                AmtPurchase = Convert.ToInt32(transaction.Amount * DOLLAR_TO_CENT),
                 Merchant = string.IsNullOrEmpty(transaction.Merchant) ? appSettings.Merchant : transaction.Merchant,
                 Application = application
             };
