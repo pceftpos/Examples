@@ -23,53 +23,7 @@ $(document).ready(function () {
         password: appSettings.pinpadPassword,
         pairCode: appSettings.pinpadPairCode
     };
-    var eFTTransactionRequest = {
-        request: {
-            txnType: "P",
-            txnRef: (generateAlphaNumStr(16)).toUpperCase(),
-            amtPurchase: parseInt($("#inputAmount").val() * 100),
-            merchant: appSettings.merchant,
-            application: appSettings.application,
-            basket: // Create a sample json 'basket' object which is sent as part of transaction request 
-            {
-                id: generateUUID(),
-                amt: 18700,
-                tax: 1760,
-                dis: 650,
-                sur: 374,
-                items: [
-                    {
-                        id: "t39kq002",
-                        sku: "k24086723",
-                        qty: 2,
-                        amt: 2145,
-                        tax: 200,
-                        dis: 50,
-                        name: "XData USB Drive"
-                    },
-                    {
-                        id: "t39kq003",
-                        sku: "s23475697",
-                        qty: 1,
-                        amt: 8910,
-                        tax: 810,
-                        dis: 50,
-                        name: "MSoft OSuite",
-                        srl: "ms7843k346j23" 
-                    },
-                    {
-                        id: "t39kq004",
-                        sku: "m47060855",
-                        qty: 5,
-                        amt: 1100,
-                        tax: 110,
-                        dis: 110,
-                        name: "A4 Notepad"
-                    }
-                ]
-            } 
-        }
-    };
+    
     var token = ""; // The authentication token
     var sessionUUID = ""; // The generated sessionUUID value is a global variable to make 'GET' transaction request with the same UUID if a post doesn't respond with a '200' status
 
@@ -125,6 +79,54 @@ $(document).ready(function () {
 
     // Function to 'POST' a transaction request and wait for the response
     function getTransactionResponse(token, sessionUUID) {
+        var eFTTransactionRequest = {
+        request: {
+            txnType: "P",
+            txnRef: (generateAlphaNumStr(16)).toUpperCase(),
+            amtPurchase: parseInt($("#inputAmount").val() * 100),
+            merchant: appSettings.merchant,
+            application: appSettings.application,
+            basket: // Create a sample json 'basket' object which is sent as part of transaction request 
+            {
+                id: generateUUID(),
+                amt: 18700,
+                tax: 1760,
+                dis: 650,
+                sur: 374,
+                items: [
+                    {
+                        id: "t39kq002",
+                        sku: "k24086723",
+                        qty: 2,
+                        amt: 2145,
+                        tax: 200,
+                        dis: 50,
+                        name: "XData USB Drive"
+                    },
+                    {
+                        id: "t39kq003",
+                        sku: "s23475697",
+                        qty: 1,
+                        amt: 8910,
+                        tax: 810,
+                        dis: 50,
+                        name: "MSoft OSuite",
+                        srl: "ms7843k346j23" 
+                    },
+                    {
+                        id: "t39kq004",
+                        sku: "m47060855",
+                        qty: 5,
+                        amt: 1100,
+                        tax: 110,
+                        dis: 110,
+                        name: "A4 Notepad"
+                    }
+                ]
+            } 
+        }
+    };
+        
         $.ajax({
             url: appSettings.cloudAPIUri + "sessions/" + sessionUUID + "/transaction",
             type: 'post',
